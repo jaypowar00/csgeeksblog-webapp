@@ -23,7 +23,7 @@
         @apply text-xl font-semibold xl:text-2xl select-none;
     }
     .sidebar-icon-section {
-        @apply fixed w-16 md:w-[4.7rem] xl:w-[5.3rem] 2xl:w-24
+        @apply absolute w-16 md:w-[4.7rem] xl:w-[5.3rem] 2xl:w-24
                 overflow-y-scroll h-screen overflow-x-hidden;
     }
     .sidebar-tooltip {
@@ -37,6 +37,14 @@
     }
     .sidebar-extra-width {
         @apply w-full;
+    }
+    .main-container {
+        @apply text-white
+                pl-[4.1rem] 2xl:pl-[6.5rem] xl:pl-[5.75rem] lg:pl-20 md:pl-[5rem] sm:pl-[4.3rem];
+    }
+    .posts-sections {
+        @apply bg-gray-900 h-screen fixed overflow-y-scroll hide-scrollbar
+                w-[89vw] sm:w-[93vw] md:w-[93.6vw] md:pr-6 max-[1023px]:pr-[1.5rem] xl:w-[94vw] xl:pr-6 2xl:w-[95vw] 2xl:pr-5;
     }
 }
 .hide-scrollbar {
