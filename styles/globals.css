@@ -1,3 +1,58 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .sidebar-icon-container {
+        @apply absolute top-0 left-0 h-fit
+                w-16 m-0 flex flex-col bg-gray-900 text-white shadow-lg
+                md:w-[4.7rem] xl:w-[5.3rem] 2xl:w-24 pb-96;
+    }
+    .sidebar-icon {
+        @apply relative flex items-center justify-center bg-gray-800 text-green-500
+                min-h-[3rem] h-12 w-12 mt-[7px] mb-[3px] mx-auto hover:bg-green-600 hover:text-white
+                rounded-2xl hover:rounded-lg transition-all cursor-pointer
+                md:min-h-[3.4rem] md:h-14 md:w-14 md:mt-[9px] md:mb-[3px]
+                xl:min-h-[4rem] xl:h-16 xl:w-16 xl:mt-[11px] xl:mb-[3px]
+                2xl:min-h-[4.5rem] 2xl:h-[4.5rem] 2xl:w-[4.5rem] 2xl:mt-[11px] 2xl:mb-[2px];
+    }
+    .sidebar-icon-svg {
+        @apply text-xl md:text-[26px] xl:text-3xl ;
+    }
+    .user-sidebar-icon {
+        @apply text-xl font-semibold xl:text-2xl select-none;
+    }
+    .sidebar-icon-section {
+        @apply fixed w-16 md:w-[4.7rem] xl:w-[5.3rem] 2xl:w-24
+                overflow-y-scroll h-screen overflow-x-hidden;
+    }
+    .sidebar-tooltip {
+        @apply absolute m-2 p-2 w-auto min-w-max rounded-md shadow-md
+        text-white bg-gray-900 text-xs font-bold transition-all 
+        duration-100 origin-left scale-0
+        left-14 md:left-16 xl:left-[4.5rem] 2xl:left-[5.3rem];
+    }
+    .sidebar-icon-linebreak {
+        @apply border-gray-700 mt-2 mb-1;
+    }
+    .sidebar-extra-width {
+        @apply w-full;
+    }
+}
+.hide-scrollbar {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+body {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    --tw-bg-opacity: 1;
+    overflow: scroll;
+    background-color: rgb(31 41 55 / var(--tw-bg-opacity));
+}
+body::-webkit-scrollbar {
+    display: none;
+}

@@ -1,7 +1,9 @@
+import SideBar from "@/components/SideBar";
+
 function Home() {
   return (
-      <div>
-        Home Page
+      <div className="flex">
+          <SideBar/>
       </div>
   );
 }
