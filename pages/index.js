@@ -1,5 +1,3 @@
-import SideBar from "@/components/SideBar";
-
 function Home() {
   return (
     <div className="flex justify-center text-center w-[80vw] h-screen mt-52">
