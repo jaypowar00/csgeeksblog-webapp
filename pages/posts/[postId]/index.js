@@ -27,7 +27,9 @@ function ArticlePostDetailPage({ article }) {
                         </Ripples>
                         <span className="text-gray-600 text-sm float-right mr-1">{new Date(article.created).toLocaleString()}</span>
                         <div className="mt-10">
-                            <ReactMarkdown children={article.content} components={{ p: 'div' }} />
+                            <ReactMarkdown components={{ p: 'div' }} >
+                                {article.content}
+                            </ReactMarkdown>
                         </div>
                         <div>
                             {/* <div className="flex justify-between items-center mb-2 text-[#6b7280]">
