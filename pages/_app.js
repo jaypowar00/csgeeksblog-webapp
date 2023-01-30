@@ -5,10 +5,17 @@ import { useRouter } from 'next/router'
 import ShareModal from '@/components/ShareModal'
 import { ShareModalWrapper } from '@/context/ShareModalContext'
 import { Toaster } from 'react-hot-toast'
+import TimeAgo from 'javascript-time-ago'
+import en from 'javascript-time-ago/locale/en'
+try{
+  TimeAgo.addDefaultLocale(en)
+}catch(e){
+  console.log(e)
+}
 
 export default function App({ Component, pageProps }) {
   const router = useRouter()
-  console.log(router.basePath)
+  // console.log(router.basePath)
   return (
   <ShareModalWrapper>
     <ShareModal/>
