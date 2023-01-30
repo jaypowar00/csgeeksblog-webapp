@@ -46,6 +46,15 @@
         @apply bg-gray-900 h-screen fixed overflow-y-scroll hide-scrollbar
                 w-[89vw] sm:w-[93vw] md:w-[93.6vw] md:pr-6 max-[1023px]:pr-[1.5rem] xl:w-[94vw] xl:pr-6 2xl:w-[95vw] 2xl:pr-5;
     }
+    blockquote {
+        @apply p-4 my-4 border-l-4 border-gray-300 bg-gray-100 dark:border-gray-600 dark:bg-gray-800;
+    }
+    blockquote p {
+        @apply text-xl italic font-medium leading-relaxed text-gray-900 dark:text-white;
+    }
+    blockquote p::first-letter {
+        @apply capitalize;
+    }
 }
 .hide-scrollbar {
     scrollbar-width: none;
