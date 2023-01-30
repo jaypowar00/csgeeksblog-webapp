@@ -24,7 +24,7 @@
     }
     .sidebar-icon-section {
         @apply absolute w-16 md:w-[4.7rem] xl:w-[5.3rem] 2xl:w-24
-                overflow-y-scroll h-screen overflow-x-hidden;
+                overflow-y-scroll h-screen overflow-x-hidden z-10;
     }
     .sidebar-tooltip {
         @apply absolute m-2 p-2 w-auto min-w-max rounded-md shadow-md
