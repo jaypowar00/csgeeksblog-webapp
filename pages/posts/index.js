@@ -9,7 +9,8 @@ function Posts({ articles }) {
                 <div className="grid gap-8 pb-32 lg:grid-cols-2">
                     {
                         articles.map((article) => {
-                            return (<PostArticleItem
+                            return (
+                            <PostArticleItem key={article._id}
                                 id={article._id} author={article.author}
                                 title={article.title}
                                 description={article.description}
