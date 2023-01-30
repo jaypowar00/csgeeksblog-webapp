@@ -14,15 +14,15 @@ function PostArticleItem({
     const [profilePhotoUrl, setProfilePhotoUrl] = useState("/avatar_dummy.svg")
 
     useEffect(() => {
+        const getProfilePhoto = async () => {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/author?name=${author}`)
+            const data = await response.json()
+            console.log(data)
+            if (data.author && data.author.profile_photo) setProfilePhotoUrl(data.author.profile_photo)
+        }
         getProfilePhoto()
     }, [])
 
-    const getProfilePhoto = async () => {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/author?name=${author}`)
-        const data = await response.json()
-        console.log(data)
-        if (data.author && data.author.profile_photo) setProfilePhotoUrl(data.author.profile_photo)
-    }
 
     const openArticle = (e) => {
         e.preventDefault();
