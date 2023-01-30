@@ -49,10 +49,10 @@
     blockquote {
         @apply p-4 my-4 border-l-4 border-gray-300 bg-gray-100 dark:border-gray-600 dark:bg-gray-800;
     }
-    blockquote p {
+    blockquote div {
         @apply text-xl italic font-medium leading-relaxed text-gray-900 dark:text-white;
     }
-    blockquote p::first-letter {
+    blockquote div::first-letter {
         @apply capitalize;
     }
 }
