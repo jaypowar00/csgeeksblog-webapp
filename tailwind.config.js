@@ -1,6 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 const colors = require('tailwindcss/colors')
-
+let conf_colors = colors;
+conf_colors.sky = conf_colors.lightBlue
+conf_colors.stone = conf_colors.warmGray
+conf_colors.neutral = conf_colors.trueGray
+conf_colors.gray = conf_colors.coolGray
+conf_colors.slate = conf_colors.blueGray
+delete conf_colors.lightBlue
+delete conf_colors.warmGray
+delete conf_colors.trueGray
+delete conf_colors.coolGray
+delete conf_colors.blueGray
 module.exports = {
   mode: 'jit',
   content: [
@@ -9,21 +19,23 @@ module.exports = {
   ],
   theme: {
     colors: {
-      primary: '#202225',
-      secondary: '#5865f2',
-      gray: colors.neutral,
-      gray: {
-        900: "#202225",
-        800: "#2f3136",
-        700: "#36393f",
-        600: "#4f545c",
-        400: "#d4d7dc",
-        300: "#e3e5e8",
-        200: "#ebedef",
-        100: "#f2f3f5",
-      },
+      ...conf_colors,
+      ...{
+        primary: '#202225',
+        secondary: '#5865f2',
+        gray: colors.neutral,
+        gray: {
+          900: "#202225",
+          800: "#2f3136",
+          700: "#36393f",
+          600: "#4f545c",
+          400: "#d4d7dc",
+          300: "#e3e5e8",
+          200: "#ebedef",
+          100: "#f2f3f5",
+        },
+      }
     },
-    colors: colors,
   },
   plugins: [],
 }
