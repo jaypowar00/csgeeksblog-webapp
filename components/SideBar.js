@@ -8,7 +8,6 @@ import PolicyOutlinedIcon from '@mui/icons-material/PolicyOutlined';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import HomeIcon from '@mui/icons-material/Home';
 import { useShowModalContext } from '../context/ShareModalContext';
-import { useRouter } from 'next/router';
 import Link from 'next/link';
 
 let timeout = null;
@@ -85,10 +84,8 @@ function SideBar() {
 
 function SideBarIcon({ icon, text = 'tooltip', modalShareOpener = false, home = false, url = "#" }) {
     let {setModalShareOpen} = useShowModalContext()
-    const router = useRouter()
-    const newUrl = url !== "#" ? (router.asPath !== url) : false
     return (
-        <Link href={url} onClick={(e) => {e.preventDefault();(modalShareOpener)?null:(newUrl)?router.push(url, undefined, {shallow: true}):null}}>
+        <Link href={url}>
             <div className="sidebar-icon group" onClick={() => {(modalShareOpener)?setModalShareOpen(true):null}}
                 onScrollCapture={() => { cancleAllTimeouts() }}
                 onMouseEnter={() => { hoveredOnTag(true) }} onMouseLeave={() => { hoveredOnTag(false) }}
