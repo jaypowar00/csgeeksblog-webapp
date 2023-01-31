@@ -19,7 +19,7 @@ function PageNotFound() {
             <Head>
                 <title>Page Not Found | CSGeeks</title>
                 <meta name="description" content="Looks like the page you were trying to reach doesn't exists (yet)" />
-                <meta property="og:type" content="website" />
+                <meta property="og:type" content="article" />
                 <meta property="og:image" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail-404.jpg`} />
                 <meta property="og:image:secure" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail-404.jpg`} />
                 <meta property="og:image:width" content="526" />
