@@ -4,24 +4,30 @@ import PostArticleItem from "@/components/PostArticleItem";
 
 function Posts({ articles }) {
     return (
-        <section className="posts-sections">
-            <div className="py-8 px-4 mx-auto lg:py-16 lg:px-6">
-                <div className="grid gap-8 pb-32 lg:grid-cols-2">
-                    {
-                        articles.map((article) => {
-                            return (
-                            <PostArticleItem key={article._id}
-                                id={article._id} author={article.author}
-                                title={article.title}
-                                description={article.description}
-                                created={article.created} tags={article.tags}
-                                thumbnail={article.thumbnail}
-                            />)
-                        })
-                    }
+        <>
+            <Head>
+                <title>Articles | CSGeeks</title>
+                <meta name="description" content="Latest article updates on CSGeeks Blog by their official founders! Check them if you haven't already. Stay tuned!" />
+            </Head>
+            <section className="posts-sections">
+                <div className="py-8 px-4 mx-auto lg:py-16 lg:px-6">
+                    <div className="grid gap-8 pb-32 lg:grid-cols-2">
+                        {
+                            articles.map((article) => {
+                                return (
+                                    <PostArticleItem key={article._id}
+                                        id={article._id} author={article.author}
+                                        title={article.title}
+                                        description={article.description}
+                                        created={article.created} tags={article.tags}
+                                        thumbnail={article.thumbnail}
+                                    />)
+                            })
+                        }
+                    </div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </>
     );
 }
 
