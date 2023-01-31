@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import Ripples from 'react-ripples'
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
+import Head from "next/head";
 
 
 function ArticlePostDetailPage({ article }) {

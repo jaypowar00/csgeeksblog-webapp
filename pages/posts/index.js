@@ -1,4 +1,5 @@
 import PostArticleItem from "@/components/PostArticleItem";
+import Head from "next/head";
 
 
 
