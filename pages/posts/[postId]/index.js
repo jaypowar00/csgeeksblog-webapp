@@ -46,7 +46,7 @@ function ArticlePostDetailPage({ article }) {
                 <meta property="twitter:url" content={`${hostUrl}/posts/${postId}`} />
                 <meta property="twitter:url" content={`${hostUrl}/posts/${postId}/`} />
                 <meta name="twitter:title" content={`${article.title}`} />
-                <meta name="twitter:description" content={`${article.title}`} />
+                <meta name="twitter:description" content={`${article.description}`} />
                 <meta name="twitter:image" content={`${article.thumbnail}`} />
 
             </Head>
