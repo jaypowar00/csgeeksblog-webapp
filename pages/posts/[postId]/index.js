@@ -148,6 +148,7 @@ export async function getStaticPaths(ctx) {
     const response = await fetch(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/posts`)
     const data = await response.json()
     let count = 0;
+    let paths = []
     if (data.articles) {
         data.articles.forEach((article) => {
             if (count < 1) {
