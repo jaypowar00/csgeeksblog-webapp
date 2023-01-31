@@ -12,10 +12,12 @@ function ArticlePostDetailPage({ article }) {
     const router = useRouter()
     const postId = router.query.postId
     const [hostUrl, sethostUrl] = useState("")
+    const [hostName, sethostName] = useState("csgeeksblog.netlify.app")
     useEffect(() => {
-        if (window.location.origin !== hostUrl) {
+        if (window.location.origin !== hostUrl)
             sethostUrl(window.location.origin)
-        }
+        if (window.location.host !== hostName)
+            sethostName(window.location.host)
     }, [])
 
     if (router.isFallback) {
@@ -27,14 +29,25 @@ function ArticlePostDetailPage({ article }) {
                 <title>{article.title}</title>
                 <meta name="description" content={`${article.description}`} />
                 <meta property="og:type" content="article" />
-                <meta name="og:image" content={article.thumbnail} />
-                <meta name="og:image:secure" content={article.thumbnail} />
+                <meta property="og:image" content={article.thumbnail} />
+                <meta property="og:image:secure" content={article.thumbnail} />
                 <meta property="og:image:width" content="526" />
                 <meta property="og:image:height" content="275" />
                 <meta property="og:image:type" content="image/jpeg" />
-                <meta name="og:title" content={`${article.title}`} />
-                <meta name="og:description" content={`${article.description}`} />
-                <meta name="og:url" content={`${hostUrl}/posts/${postId}`} />
+                <meta property="og:title" content={`${article.title}`} />
+                <meta property="og:description" content={`${article.description}`} />
+                <meta property="og:url" content={`${hostUrl}/posts/${postId}`} />
+                <meta property="og:url" content={`${hostUrl}/posts/${postId}/`} />
+                <meta property="og:site_name" content={`${hostName}`} />
+
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta property="twitter:domain" content={`${hostName}`} />
+                <meta property="twitter:url" content={`${hostUrl}/posts/${postId}`} />
+                <meta property="twitter:url" content={`${hostUrl}/posts/${postId}/`} />
+                <meta name="twitter:title" content={`${article.title}`} />
+                <meta name="twitter:description" content={`${article.title}`} />
+                <meta name="twitter:image" content={`${article.thumbnail}`} />
+
             </Head>
             <div className="posts-sections">
                 <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-gray-900">

@@ -5,27 +5,37 @@ import { useEffect, useState } from "react";
 
 function PageNotFound() {
     const [hostUrl, sethostUrl] = useState("")
+    const [hostName, sethostName] = useState("csgeeksblog.netlify.app")
     const router = useRouter()
     useEffect(() => {
-        if(window.location.origin !== hostUrl) {
+        if (window.location.origin !== hostUrl)
             sethostUrl(window.location.origin)
-          }
+        if (window.location.host !== hostName)
+            sethostName(window.location.host)
     }, [])
-    
+
     return (
         <>
             <Head>
                 <title>Page Not Found | CSGeeks</title>
                 <meta name="description" content="Looks like the page you were trying to reach doesn't exists (yet)" />
                 <meta property="og:type" content="website" />
-                <meta name="og:image" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail-404.jpg`} />
-                <meta name="og:image:secure" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail-404.jpg`} />
+                <meta property="og:image" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail-404.jpg`} />
+                <meta property="og:image:secure" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail-404.jpg`} />
                 <meta property="og:image:width" content="526" />
                 <meta property="og:image:height" content="275" />
                 <meta property="og:image:type" content="image/jpeg" />
-                <meta name="og:title" content="Page not found!" />
-                <meta name="og:url" content={`${hostUrl}/${router.asPath}`} />
-                <meta name="og:description" content="Looks like the page you were trying to reach doesn't exists (yet)" />
+                <meta property="og:title" content="Page not found!" />
+                <meta property="og:url" content={`${hostUrl}/${router.asPath}`} />
+                <meta property="og:description" content="Looks like the page you were trying to reach doesn't exists (yet)" />
+                <meta property="og:site_name" content={`${hostName}`} />
+
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta property="twitter:domain" content={`${hostName}`} />
+                <meta property="twitter:url" content={`${hostUrl}/${router.asPath}`} />
+                <meta name="twitter:title" content="Page not found!" />
+                <meta name="twitter:description" content="Looks like the page you were trying to reach doesn't exists (yet)" />
+                <meta name="twitter:image" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail-404.jpg`} />
             </Head>
             <section className="posts-sections flex items-center">
                 <div className="flex flex-col items-center justify-center px-5 mx-auto mb-8 -mt-32">
