@@ -13,7 +13,7 @@ function Home() {
       <Head>
         <title>CSGeeks Blog</title>
         <meta name="description" content="Official CS Geeks Blog, know the tech, feel the tech! A place for tech." />
-        <meta name="og:image" content="/CSGeeksBlog-OG-Thumbnail.jpg" />
+        <meta name="og:image" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail.jpg`} />
         <meta property="og:image:width" content="1140" />
         <meta property="og:image:height" content="540" />
         <meta name="og:title" content="CSGeeks Blog | Official" />

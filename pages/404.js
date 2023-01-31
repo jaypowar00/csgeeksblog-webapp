@@ -1,16 +1,27 @@
 import Head from "next/head";
 import Link from "next/link";
+import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 function PageNotFound() {
+    const [hostUrl, sethostUrl] = useState("")
+    const router = useRouter()
+    useEffect(() => {
+        if(window.location.origin !== hostUrl) {
+            sethostUrl(window.location.origin)
+          }
+    }, [])
+    
     return (
         <>
             <Head>
                 <title>Page Not Found | CSGeeks</title>
                 <meta name="description" content="Looks like the page you were trying to reach doesn't exists (yet)" />
-                <meta name="og:image" content="/CSGeeksBlog-OG-Thumbnail-404.jpg" />
+                <meta name="og:image" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail-404.jpg`} />
                 <meta property="og:image:width" content="1140" />
                 <meta property="og:image:height" content="540" />
                 <meta name="og:title" content="Page not found!" />
+                <meta name="og:url" content={`${hostUrl}/${router.asPath}`} />
                 <meta name="og:description" content="Looks like the page you were trying to reach doesn't exists (yet)" />
                 <meta property="og:type" content="website" />
             </Head>

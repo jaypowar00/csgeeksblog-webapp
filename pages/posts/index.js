@@ -19,7 +19,7 @@ function Posts({ articles }) {
             <Head>
                 <title>Articles | CSGeeks</title>
                 <meta name="description" content="Latest article updates on CSGeeks Blog by their official founders! Check them if you haven't already. Stay tuned!" />
-                <meta name="og:image" content="/CSGeeksBlog-OG-Thumbnail.jpg" />
+                <meta name="og:image" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail.jpg`} />
                 <meta property="og:image:width" content="1140" />
                 <meta property="og:image:height" content="540" />
                 <meta name="og:title" content="Articles | CSGeeks Blog" />
