@@ -4,13 +4,11 @@ import Ripples from 'react-ripples'
 import PostArticleTagList from "./PostArticleTagList";
 import TimeAgo from 'javascript-time-ago'
 import Link from "next/link";
-import { useRouter } from "next/router";
 const timeAgo = new TimeAgo('en-US')
 
 function PostArticleItem({
     id = "", author = "", created = "", tags = [],
     title = "", description = "", thumbnail = "" }) {
-    const router = useRouter()
     const [profilePhotoUrl, setProfilePhotoUrl] = useState("/avatar_dummy.svg")
 
     useEffect(() => {
@@ -23,16 +21,10 @@ function PostArticleItem({
         getProfilePhoto()
     }, [])
 
-
-    const openArticle = (e) => {
-        e.preventDefault();
-        router.push(`/posts/${id}`, undefined, { shallow: true })
-    }
-
     return (
         <article key={id} className="p-3 md:p-5 xl:p-5 2xl:p-6 rounded-lg border shadow-md bg-gray-800 border-gray-700">
             <Ripples during={700}>
-                <Link onClick={openArticle} href={`/posts/${id}`}>
+                <Link href={`/posts/${id}`}>
                     <Image className="select-none w-screen h-32 2xl:h-64 xl:h-60 md:h-52 sm:h-44 rounded-t-lg" style={{ objectFit: 'cover' }} src={thumbnail} width={1080} height={0} quality={75} alt="" />
                 </Link>
             </Ripples>
@@ -43,7 +35,7 @@ function PostArticleItem({
                 <span className="text-xs select-none" title={new Date(created).toLocaleString()}>{timeAgo.format(new Date(created))}</span>
             </div>
             <h2 className="select-all mb-2 text-2xl font-bold tracking-tight text-white">
-                <Link href={`/posts/${id}`} onClick={openArticle}>{title}</Link>
+                <Link href={`/posts/${id}`}>{title}</Link>
             </h2>
             <p className="mb-5 font-light text-gray-400">
                 {`${description.substring(0, 150)}${(description.length > 150) ? '...' : ''}`}
@@ -55,7 +47,7 @@ function PostArticleItem({
                         {author}
                     </span>
                 </div>
-                <Link href={`/posts/${id}`} onClick={openArticle} className="select-none inline-flex items-center font-medium text-blue-600 text-primary-500 hover:underline">
+                <Link href={`/posts/${id}`} className="select-none inline-flex items-center font-medium text-blue-600 text-primary-500 hover:underline">
                     Read more
                     <svg className="ml-2 w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path fillRule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clipRule="evenodd"></path></svg>
                 </Link>
