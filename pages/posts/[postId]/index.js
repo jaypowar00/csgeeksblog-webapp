@@ -8,7 +8,7 @@ import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 
 function ArticlePostDetailPage({ article }) {
     const router = useRouter()
-    // const postId = router.query.postId
+    const postId = router.query.postId
     if (router.isFallback) {
         return (<h1>Loading...</h1>)
     }
@@ -17,6 +17,11 @@ function ArticlePostDetailPage({ article }) {
             <Head>
                 <title>{article.title}</title>
                 <meta name="description" content={`${article.description}`} />
+                <meta name="og:image" content={article.thumbnail} />
+                <meta name="og:title" content={`${article.title}`} />
+                <meta name="og:description" content={`${article.description}`} />
+                <meta name="og:url" content={`${window.location.host}/posts/${postId}`} />
+                <meta property="og:type" content="article" />
             </Head>
             <div className="posts-sections">
                 <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-gray-900">

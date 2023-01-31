@@ -6,6 +6,12 @@ function PageNotFound() {
             <Head>
                 <title>Page Not Found | CSGeeks</title>
                 <meta name="description" content="Looks like the page you were trying to reach doesn't exists (yet)" />
+                <meta name="og:image" content="/CSGeeksBlog-OG-Thumbnail-404.jpg" />
+                <meta property="og:image:width" content="1140" />
+                <meta property="og:image:height" content="540" />
+                <meta name="og:title" content="Page not found!" />
+                <meta name="og:description" content="Looks like the page you were trying to reach doesn't exists (yet)" />
+                <meta property="og:type" content="website" />
             </Head>
             <section className="posts-sections flex items-center">
                 <div className="flex flex-col items-center justify-center px-5 mx-auto mb-8 -mt-32">
