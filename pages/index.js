@@ -16,6 +16,7 @@ function Home() {
         <title>CSGeeks Blog</title>
         <meta name="description" content="Official CS Geeks Blog, know the tech, feel the tech! A place for tech." />
         <meta property="og:type" content="website" />
+        <meta name="author" content="Jay Powar"/>
         <meta property="og:image" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail.jpg`} />
         <meta property="og:image:secure" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail.jpg`} />
         <meta property="og:image:width" content="526" />

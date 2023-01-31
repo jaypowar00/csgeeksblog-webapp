@@ -28,6 +28,7 @@ function ArticlePostDetailPage({ article }) {
             <Head>
                 <title>{article.title}</title>
                 <meta name="description" content={`${article.description}`} />
+                <meta name="author" content={article.author}/>
                 <meta property="og:type" content="article" />
                 <meta property="og:image" content={article.thumbnail} />
                 <meta property="og:image:secure" content={article.thumbnail} />
