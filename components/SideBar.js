@@ -9,6 +9,7 @@ import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import HomeIcon from '@mui/icons-material/Home';
 import { useShowModalContext } from '../context/ShareModalContext';
 import { useRouter } from 'next/router';
+import Link from 'next/link';
 
 let timeout = null;
 let long_timeout = null;
@@ -62,14 +63,14 @@ function SideBar() {
     return (
         <div onScrollCapture={() => { cancleAllTimeouts() }} className='hide-scrollbar sidebar-icon-section' id="sidebar-dynamic-section">
             <div className="sidebar-icon-container">
-                <SideBarIcon text='Home' home={true} icon={<HomeIcon className='sidebar-icon-svg' />} />
-                <SideBarIcon text='Posts' icon={<GridViewOutlinedIcon className='sidebar-icon-svg' />} />
-                <SideBarIcon text='Search' icon={<SearchOutlinedIcon className='sidebar-icon-svg' />} />
-                <SideBarIcon text='Authors' icon={<StyleOutlinedIcon className='sidebar-icon-svg' />} />
+                <SideBarIcon text='Home' url="/" home={true} icon={<HomeIcon className='sidebar-icon-svg' />} />
+                <SideBarIcon text='Posts' url="/posts" icon={<GridViewOutlinedIcon className='sidebar-icon-svg' />} />
+                <SideBarIcon text='Search' url="/posts/search" icon={<SearchOutlinedIcon className='sidebar-icon-svg' />} />
+                <SideBarIcon text='Authors' url="/posts/authors" icon={<StyleOutlinedIcon className='sidebar-icon-svg' />} />
                 <SideBarIcon text='' icon={<AccountBoxOutlinedIcon className='sidebar-icon-svg' />} />
                 <SideBarIcon text='Share' modalShareOpener={true} icon={<LaunchOutlinedIcon className='sidebar-icon-svg' />} />
-                <SideBarIcon text='Privacy Policy' icon={<PolicyOutlinedIcon className='sidebar-icon-svg' />} />
-                <SideBarIcon text='About' icon={<InfoOutlinedIcon className='sidebar-icon-svg' />} />
+                <SideBarIcon text='Privacy Policy' url="/privacypolicy" icon={<PolicyOutlinedIcon className='sidebar-icon-svg' />} />
+                <SideBarIcon text='About' url="/about" icon={<InfoOutlinedIcon className='sidebar-icon-svg' />} />
                 <hr className='sidebar-icon-linebreak' />
                 <UserAddedSideIcons tagName={"Anime"} />
                 {/* <UserAddedSideIcons tagName={"Technology"} /> */}
@@ -82,15 +83,12 @@ function SideBar() {
     );
 }
 
-function SideBarIcon({ icon, text = 'tooltip', modalShareOpener = false, home = false }) {
+function SideBarIcon({ icon, text = 'tooltip', modalShareOpener = false, home = false, url = "#" }) {
     let {setModalShareOpen} = useShowModalContext()
     const router = useRouter()
-    const url = (home)?'/':`/${text.toLowerCase().replace(' ', '')}`
-    console.log(url)
-    const newUrl = router.asPath !== url
-    console.log(newUrl)
+    const newUrl = url !== "#" ? (router.asPath !== url) : false
     return (
-        <div onClick={() => {(modalShareOpener)?null:(newUrl)?router.push(url):null}}>
+        <Link href={url} onClick={(e) => {e.preventDefault();(modalShareOpener)?null:(newUrl)?router.push(url, undefined, {shallow: true}):null}}>
             <div className="sidebar-icon group" onClick={() => {(modalShareOpener)?setModalShareOpen(true):null}}
                 onScrollCapture={() => { cancleAllTimeouts() }}
                 onMouseEnter={() => { hoveredOnTag(true) }} onMouseLeave={() => { hoveredOnTag(false) }}
@@ -100,7 +98,7 @@ function SideBarIcon({ icon, text = 'tooltip', modalShareOpener = false, home = 
                     {text}
                 </span>
             </div>
-        </div>
+        </Link>
     )
 }
 
