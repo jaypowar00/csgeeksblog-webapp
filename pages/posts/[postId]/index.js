@@ -26,14 +26,15 @@ function ArticlePostDetailPage({ article }) {
             <Head>
                 <title>{article.title}</title>
                 <meta name="description" content={`${article.description}`} />
+                <meta property="og:type" content="article" />
                 <meta name="og:image" content={article.thumbnail} />
                 <meta name="og:image:secure" content={article.thumbnail} />
-                <meta property="og:image:width" content="1200" />
-                <meta property="og:image:height" content="630" />
+                <meta property="og:image:width" content="526" />
+                <meta property="og:image:height" content="275" />
+                <meta property="og:image:type" content="image/jpeg" />
                 <meta name="og:title" content={`${article.title}`} />
                 <meta name="og:description" content={`${article.description}`} />
                 <meta name="og:url" content={`${hostUrl}/posts/${postId}`} />
-                <meta property="og:type" content="article" />
             </Head>
             <div className="posts-sections">
                 <main className="pt-8 pb-16 lg:pt-16 lg:pb-24 bg-gray-900">
@@ -144,20 +145,19 @@ function ArticlePostDetailPage({ article }) {
 export default ArticlePostDetailPage;
 
 export async function getStaticPaths(ctx) {
-    // const response = await fetch(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/posts`)
-    // const data = await response.json()
-    let paths = [{ params: { postId: `1` } }]
-    // let count = 0;
-    // if (data.articles) {
-    //     data.articles.forEach((article) => {
-    //         if (count < 1) {
-    //             paths.push({ params: { postId: `${article._id}` } })
-    //             count += 1
-    //         }
-    //     })
-    // }
-    console.log('paths')
-    console.log(paths)
+    const response = await fetch(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/posts`)
+    const data = await response.json()
+    let count = 0;
+    if (data.articles) {
+        data.articles.forEach((article) => {
+            if (count < 1) {
+                paths.push({ params: { postId: `${article._id}` } })
+                count += 1
+            }
+        })
+    }
+    // console.log('paths')
+    // console.log(paths)
     return {
         paths,
         fallback: true
@@ -167,7 +167,7 @@ export async function getStaticPaths(ctx) {
 export const getStaticProps = async (ctx) => {
     const { params } = ctx;
     const { postId } = params;
-    console.log(postId)
+    // console.log(postId)
     const response = await fetch(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/post?id=${postId}`)
     const data = await response.json()
     let article = {}
