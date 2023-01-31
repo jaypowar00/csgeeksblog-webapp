@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { useEffect, useState } from "react";
 function Home() {
-  const [hostUrl, sethostUrl] = useState("")
+  const [hostUrl, sethostUrl] = useState("https://csgeeksblog.netlify.app")
   const [hostName, sethostName] = useState("csgeeksblog.netlify.app")
   useEffect(() => {
     if (window.location.origin !== hostUrl)

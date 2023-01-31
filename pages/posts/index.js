@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 
 
 function Posts({ articles }) {
-    const [hostUrl, sethostUrl] = useState("")
+    const [hostUrl, sethostUrl] = useState("https://csgeeksblog.netlify.app")
     const [hostName, sethostName] = useState("csgeeksblog.netlify.app")
 
     useEffect(() => {
