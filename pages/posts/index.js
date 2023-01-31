@@ -1,9 +1,19 @@
 import PostArticleItem from "@/components/PostArticleItem";
 import Head from "next/head";
+import { useEffect, useState } from "react";
 
 
 
 function Posts({ articles }) {
+    const [hostUrl, sethostUrl] = useState("")
+    
+    useEffect(() => {
+      if(window.location.origin !== hostUrl) {
+        sethostUrl(window.location.origin)
+      }
+    }, [])
+    
+
     return (
         <>
             <Head>
@@ -14,7 +24,7 @@ function Posts({ articles }) {
                 <meta property="og:image:height" content="540" />
                 <meta name="og:title" content="Articles | CSGeeks Blog" />
                 <meta name="og:description" content="See whats happening inside CSGeekBlog. Maybe some one posted your article? WhoKnows..." />
-                <meta name="og:url" content={`${window.location.host}/posts`} />
+                <meta name="og:url" content={`${hostUrl}/posts`} />
                 <meta property="og:type" content="website" />
             </Head>
             <section className="posts-sections">

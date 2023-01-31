@@ -1,5 +1,13 @@
 import Head from "next/head";
+import { useEffect, useState } from "react";
 function Home() {
+  const [hostUrl, sethostUrl] = useState("")
+  useEffect(() => {
+    if(window.location.origin !== hostUrl) {
+      sethostUrl(window.location.origin)
+    }
+  }, [])
+  
   return (
     <>
       <Head>
@@ -10,7 +18,7 @@ function Home() {
         <meta property="og:image:height" content="540" />
         <meta name="og:title" content="CSGeeks Blog | Official" />
         <meta name="og:description" content="Want to know tech, then take your tech with CS Geeks' Official Blog!" />
-        <meta name="og:url" content={`${window.location.host}/`} />
+        <meta name="og:url" content={`${hostUrl}/`} />
         <meta property="og:type" content="website" />
       </Head>
       <div className="flex justify-center text-center w-[80vw] h-screen mt-52">

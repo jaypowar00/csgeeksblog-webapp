@@ -5,11 +5,19 @@ import { useRouter } from "next/router";
 import Ripples from 'react-ripples'
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import Head from "next/head";
+import { useEffect, useState } from "react";
 
 
 function ArticlePostDetailPage({ article }) {
     const router = useRouter()
     const postId = router.query.postId
+    const [hostUrl, sethostUrl] = useState("")
+    useEffect(() => {
+        if(window.location.origin !== hostUrl) {
+            sethostUrl(window.location.origin)
+          }
+    }, [])
+    
     if (router.isFallback) {
         return (<h1>Loading...</h1>)
     }
@@ -21,7 +29,7 @@ function ArticlePostDetailPage({ article }) {
                 <meta name="og:image" content={article.thumbnail} />
                 <meta name="og:title" content={`${article.title}`} />
                 <meta name="og:description" content={`${article.description}`} />
-                <meta name="og:url" content={`${window.location.host}/posts/${postId}`} />
+                <meta name="og:url" content={`${hostUrl}/posts/${postId}`} />
                 <meta property="og:type" content="article" />
             </Head>
             <div className="posts-sections">
