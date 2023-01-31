@@ -13,11 +13,11 @@ function ArticlePostDetailPage({ article }) {
     const postId = router.query.postId
     const [hostUrl, sethostUrl] = useState("")
     useEffect(() => {
-        if(window.location.origin !== hostUrl) {
+        if (window.location.origin !== hostUrl) {
             sethostUrl(window.location.origin)
-          }
+        }
     }, [])
-    
+
     if (router.isFallback) {
         return (<h1>Loading...</h1>)
     }
@@ -27,6 +27,9 @@ function ArticlePostDetailPage({ article }) {
                 <title>{article.title}</title>
                 <meta name="description" content={`${article.description}`} />
                 <meta name="og:image" content={article.thumbnail} />
+                <meta name="og:image:secure" content={article.thumbnail} />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
                 <meta name="og:title" content={`${article.title}`} />
                 <meta name="og:description" content={`${article.description}`} />
                 <meta name="og:url" content={`${hostUrl}/posts/${postId}`} />

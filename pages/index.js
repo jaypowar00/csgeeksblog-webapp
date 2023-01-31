@@ -14,12 +14,13 @@ function Home() {
         <title>CSGeeks Blog</title>
         <meta name="description" content="Official CS Geeks Blog, know the tech, feel the tech! A place for tech." />
         <meta name="og:image" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail.jpg`} />
+        <meta name="og:image:secure" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail.jpg`} />
         <meta property="og:image:width" content="1140" />
         <meta property="og:image:height" content="540" />
         <meta name="og:title" content="CSGeeks Blog | Official" />
         <meta name="og:description" content="Want to know tech, then take your tech with CS Geeks' Official Blog!" />
         <meta name="og:url" content={`${hostUrl}/`} />
-        <meta property="og:type" content="website" />
+        <meta property="og:type" content="article" />
       </Head>
       <div className="flex justify-center text-center w-[80vw] h-screen mt-52">
         <h1 className="mx-auto justify-center">

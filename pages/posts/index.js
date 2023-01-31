@@ -20,12 +20,13 @@ function Posts({ articles }) {
                 <title>Articles | CSGeeks</title>
                 <meta name="description" content="Latest article updates on CSGeeks Blog by their official founders! Check them if you haven't already. Stay tuned!" />
                 <meta name="og:image" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail.jpg`} />
+                <meta name="og:image:secure" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail.jpg`} />
                 <meta property="og:image:width" content="1140" />
                 <meta property="og:image:height" content="540" />
                 <meta name="og:title" content="Articles | CSGeeks Blog" />
                 <meta name="og:description" content="See whats happening inside CSGeekBlog. Maybe some one posted your article? WhoKnows..." />
                 <meta name="og:url" content={`${hostUrl}/posts`} />
-                <meta property="og:type" content="website" />
+                <meta property="og:type" content="article" />
             </Head>
             <section className="posts-sections">
                 <div className="py-8 px-4 mx-auto lg:py-16 lg:px-6">
