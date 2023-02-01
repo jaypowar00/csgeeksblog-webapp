@@ -4,19 +4,26 @@ import Ripples from 'react-ripples'
 import PostArticleTagList from "./PostArticleTagList";
 import TimeAgo from 'javascript-time-ago'
 import Link from "next/link";
+import axios from "axios";
 const timeAgo = new TimeAgo('en-US')
 
 function PostArticleItem({
     id = "", author = "", created = "", tags = [],
     title = "", description = "", thumbnail = "" }) {
     const [profilePhotoUrl, setProfilePhotoUrl] = useState("/avatar_dummy.svg")
+    const date = new Date(created)
+    const formattedDate = `${date.getMonth() < 9 ? "0" : ""}${date.getMonth() + 1}/${date.getDate() < 10 ? "0" : ""}${date.getDate()}/${date.getFullYear()} ${(date.getHours() % 12)}:${date.getMinutes() < 10 ? "0" : ""}${date.getMinutes()}:${date.getSeconds() < 10 ? "0" : ""}${date.getSeconds()} ${date.getHours() > 12 ? "PM" : "AM"}`
 
     useEffect(() => {
         const getProfilePhoto = async () => {
-            const response = await fetch(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/author?name=${author}`)
-            const data = await response.json()
-            console.log(data)
-            if (data.author && data.author.profile_photo) setProfilePhotoUrl(data.author.profile_photo)
+            axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/author?name=${author}`)
+                .then(response => {
+                    if (response.data.author && response.data.author.profile_photo)
+                    setProfilePhotoUrl(response.data.author.profile_photo)
+                })
+                .catch(err => {
+                    setProfilePhotoUrl("/avatar_dummy.svg")
+                })
         }
         getProfilePhoto()
     }, [])
@@ -32,7 +39,7 @@ function PostArticleItem({
                 <span className="select-none text-green-600 overflow-hidden text-xs font-medium inline-flex items-center px-0.5 py-[1px] rounded 2xl:w-[86%] xl:w-[83%] md:w-[81%] sm:w-[78%] min-[428px]:w-[70%] w-[65%]">
                     <PostArticleTagList tags={tags} />
                 </span>
-                <span className="text-xs select-none" title={new Date(created).toLocaleString()}>{timeAgo.format(new Date(created))}</span>
+                <span className="text-xs select-none" title={formattedDate}>{timeAgo.format(new Date(created))}</span>
             </div>
             <h2 className="mb-2 text-2xl font-bold tracking-tight text-white">
                 <Link className="article-title" href={`/posts/${id}`}>{title}</Link>
