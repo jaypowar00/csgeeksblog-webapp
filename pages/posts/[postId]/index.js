@@ -6,6 +6,8 @@ import Ripples from 'react-ripples'
 import { ReactMarkdown } from "react-markdown/lib/react-markdown";
 import Head from "next/head";
 import { useEffect, useState } from "react";
+import axios from "axios";
+import DisqusComments from "@/components/DisqusComments";
 
 
 function ArticlePostDetailPage({ article }) {
@@ -13,22 +15,36 @@ function ArticlePostDetailPage({ article }) {
     const postId = router.query.postId
     const [hostUrl, sethostUrl] = useState("")
     const [hostName, sethostName] = useState("csgeeksblog.netlify.app")
+    const [profilePhotoUrl, setProfilePhotoUrl] = useState("/avatar_dummy.svg")
+    if (router.isFallback) {
+        return (<h1>Loading...</h1>)
+    }
+    const date = new Date(article.created)
+    const formattedDate = `${date.getMonth() < 9 ? "0" : ""}${date.getMonth() + 1}/${date.getDate() < 10 ? "0" : ""}${date.getDate()}/${date.getFullYear()} ${(date.getHours() % 12)}:${date.getMinutes() < 10 ? "0" : ""}${date.getMinutes()}:${date.getSeconds() < 10 ? "0" : ""}${date.getSeconds()} ${date.getHours() > 12 ? "PM" : "AM"}`
     useEffect(() => {
         if (window.location.origin !== hostUrl)
             sethostUrl(window.location.origin)
         if (window.location.host !== hostName)
             sethostName(window.location.host)
+        const getProfilePhoto = async () => {
+            axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/author?name=${article.author}`)
+                .then(response => {
+                    if (response.data.author && response.data.author.profile_photo)
+                        setProfilePhotoUrl(response.data.author.profile_photo)
+                })
+                .catch(err => {
+                    setProfilePhotoUrl("/avatar_dummy.svg")
+                })
+        }
+        getProfilePhoto()
     }, [])
 
-    if (router.isFallback) {
-        return (<h1>Loading...</h1>)
-    }
     return (
         <>
             <Head>
                 <title>{article.title}</title>
                 <meta name="description" content={`${article.description}`} />
-                <meta name="author" content={article.author}/>
+                <meta name="author" content={article.author} />
                 <meta property="og:type" content="article" />
                 <meta property="og:image" content={article.thumbnail} />
                 <meta property="og:image:secure" content={article.thumbnail} />
@@ -62,18 +78,35 @@ function ArticlePostDetailPage({ article }) {
                             <Ripples>
                                 <Image className="select-none" width={1080} height={0} quality={75} src={article.thumbnail} alt={`${article.title}'s thumbnail`} />
                             </Ripples>
-                            <span className="text-gray-600 text-sm float-right mr-1">{new Date(article.created).toLocaleString()}</span>
+                            <div className="flex justify-between items-center">
+                                <div className="flex items-center space-x-4 mt-2">
+                                    <Ripples>
+                                        <Image className="select-none w-7 h-7 rounded-full" width={128} height={128} quality={100} src={profilePhotoUrl} alt={`${article.author}'s Profile Picture`} />
+                                    </Ripples>
+                                    <span className="font-medium text-white">
+                                        {article.author}
+                                    </span>
+                                </div>
+                                <span className="text-gray-600 text-sm float-right mr-1">{formattedDate}</span>
+                            </div>
                             <div className="mt-10">
                                 <ReactMarkdown components={{ p: 'div' }} >
                                     {article.content}
                                 </ReactMarkdown>
-                            </div>
-                            <div>
-                                {/* <div className="flex justify-between items-center mb-2 text-[#6b7280]">
-                                <span className="select-none text-green-600 overflow-hidden text-xs font-medium inline-flex items-center px-0.5 py-[1px] rounded 2xl:w-[86%] xl:w-[83%] md:w-[81%] sm:w-[78%] min-[428px]:w-[70%] w-[65%]">
-                                    <PostArticleTagList tags={article.tags} />
-                                </span>
-                            </div> */}
+                                <div className="flex justify-between items-center mt-16 mb-2 text-[#6b7280]">
+                                    <span className="select-none flex-wrap text-green-600 text-xs font-medium inline-flex items-center px-0.5 py-[1px] rounded">
+                                        <span key={0} className="py-[3px] pr-2 text-gray-200 font-bold">
+                                            Tags:
+                                        </span>
+                                        {article.tags.map(tag => (
+                                            <span key={tag} className="py-[3px] px-2 mr-2 my-2 bg-gray-700 rounded-2xl hover:cursor-pointer hover:bg-gray-900">
+                                                {tag}
+                                            </span>
+                                        ))}
+                                    </span>
+                                </div>
+                                <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"/>
+                                <DisqusComments article={article}/>
                             </div>
                         </article>
                     </div>
@@ -120,11 +153,12 @@ function ArticlePostDetailPage({ article }) {
                             </div>
                         </div>
                         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+                        
                         <div className="text-center">
-                            <Link href="#" className="flex justify-center items-center mb-5 text-2xl font-semibold text-gray-900 dark:text-white">
+                            <Link href="#" className="flex justify-center items-center mb-5 text-2xl font-semibold text-gray-900 dark:text-white footer-title">
                                 CSGeeks
                             </Link>
-                            <span className="block text-sm text-center text-gray-500 dark:text-gray-400">© 2017-2022 <a href="#" className="hover:underline">CSGeeks™</a>. All Rights Reserved.
+                            <span className="block text-sm text-center text-gray-500 dark:text-gray-400">© 2017-2022 <a href="#" className="hover:underline footer-mini-title">CSGeeks™</a>. All Rights Reserved.
                             </span>
                             <ul className="flex justify-center mt-5 space-x-5">
                                 <li>
