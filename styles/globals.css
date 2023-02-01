@@ -4,9 +4,9 @@
 
 @layer components {
     .sidebar-icon-container {
-        @apply absolute top-0 left-0 h-fit
+        @apply absolute top-0 left-0 h-screen
                 w-16 m-0 flex flex-col bg-gray-900 text-white shadow-lg
-                md:w-[4.7rem] xl:w-[5.3rem] 2xl:w-24 pb-96;
+                md:w-[4.7rem] xl:w-[5.3rem] 2xl:w-24 pb-2;
     }
     .sidebar-icon {
         @apply relative flex items-center justify-center bg-gray-800 text-green-500
@@ -55,7 +55,7 @@
     blockquote div::first-letter {
         @apply capitalize;
     }
-    a:not(.article-title, .article-readmore, .article-image) {
+    a:not(.article-title, .article-readmore, .article-image, .footer-title, .footer-mini-title) {
         @apply text-blue-400 hover:underline;
     }
 }
