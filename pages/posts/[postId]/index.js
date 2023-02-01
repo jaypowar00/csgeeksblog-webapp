@@ -10,12 +10,11 @@ import axios from "axios";
 import DisqusComments from "@/components/DisqusComments";
 
 
-function ArticlePostDetailPage({ article }) {
+function ArticlePostDetailPage({ article, profilePhotoUrl }) {
     const router = useRouter()
     const postId = router.query.postId
-    const [hostUrl, sethostUrl] = useState("")
+    const [hostUrl, sethostUrl] = useState("https://csgeeksblog.netlify.app")
     const [hostName, sethostName] = useState("csgeeksblog.netlify.app")
-    const [profilePhotoUrl, setProfilePhotoUrl] = useState("/avatar_dummy.svg")
     if (router.isFallback) {
         return (<h1>Loading...</h1>)
     }
@@ -26,17 +25,6 @@ function ArticlePostDetailPage({ article }) {
             sethostUrl(window.location.origin)
         if (window.location.host !== hostName)
             sethostName(window.location.host)
-        const getProfilePhoto = async () => {
-            axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/author?name=${article.author}`)
-                .then(response => {
-                    if (response.data.author && response.data.author.profile_photo)
-                        setProfilePhotoUrl(response.data.author.profile_photo)
-                })
-                .catch(err => {
-                    setProfilePhotoUrl("/avatar_dummy.svg")
-                })
-        }
-        getProfilePhoto()
     }, [])
 
     return (
@@ -105,8 +93,8 @@ function ArticlePostDetailPage({ article }) {
                                         ))}
                                     </span>
                                 </div>
-                                <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8"/>
-                                <DisqusComments article={article}/>
+                                <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+                                <DisqusComments article={article} hostUrl={hostUrl} />
                             </div>
                         </article>
                     </div>
@@ -153,7 +141,7 @@ function ArticlePostDetailPage({ article }) {
                             </div>
                         </div>
                         <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
-                        
+
                         <div className="text-center">
                             <Link href="#" className="flex justify-center items-center mb-5 text-2xl font-semibold text-gray-900 dark:text-white footer-title">
                                 CSGeeks
@@ -220,10 +208,24 @@ export const getStaticProps = async (ctx) => {
     const response = await fetch(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/post?id=${postId}`)
     const data = await response.json()
     let article = {}
+    let profilePhotoUrl = "/avatar_dummy.svg"
     if (data.article) article = data.article
+    if (data.article.author) {
+        await axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/author?name=${article.author}`)
+            .then(response => {
+                if (response.data.author && response.data.author.profile_photo)
+                    profilePhotoUrl = response.data.author.profile_photo
+            })
+            .catch(err => {
+                setProfilePhotoUrl("/avatar_dummy.svg")
+            })
+            .finally(() => {
+            })
+    }
     return {
         props: {
             article,
+            profilePhotoUrl,
         }, revalidate: 60
     }
 }
