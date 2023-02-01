@@ -15,17 +15,19 @@ function ArticlePostDetailPage({ article, profilePhotoUrl }) {
     const postId = router.query.postId
     const [hostUrl, sethostUrl] = useState("https://csgeeksblog.netlify.app")
     const [hostName, sethostName] = useState("csgeeksblog.netlify.app")
+    const date = new Date(article.created)
+    const formattedDate = `${date.getMonth() < 9 ? "0" : ""}${date.getMonth() + 1}/${date.getDate() < 10 ? "0" : ""}${date.getDate()}/${date.getFullYear()} ${(date.getHours() % 12)}:${date.getMinutes() < 10 ? "0" : ""}${date.getMinutes()}:${date.getSeconds() < 10 ? "0" : ""}${date.getSeconds()} ${date.getHours() > 12 ? "PM" : "AM"}`;
+    
+    useEffect(() => {
+        if (window.location.origin !== hostUrl)
+        sethostUrl(window.location.origin)
+        if (window.location.host !== hostName)
+        sethostName(window.location.host)
+    }, [])
+    
     if (router.isFallback) {
         return (<h1>Loading...</h1>)
     }
-    const date = new Date(article.created)
-    const formattedDate = `${date.getMonth() < 9 ? "0" : ""}${date.getMonth() + 1}/${date.getDate() < 10 ? "0" : ""}${date.getDate()}/${date.getFullYear()} ${(date.getHours() % 12)}:${date.getMinutes() < 10 ? "0" : ""}${date.getMinutes()}:${date.getSeconds() < 10 ? "0" : ""}${date.getSeconds()} ${date.getHours() > 12 ? "PM" : "AM"}`
-    useEffect(() => {
-        if (window.location.origin !== hostUrl)
-            sethostUrl(window.location.origin)
-        if (window.location.host !== hostName)
-            sethostName(window.location.host)
-    }, [])
 
     return (
         <>
