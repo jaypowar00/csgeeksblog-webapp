@@ -36,11 +36,11 @@ function Home() {
         <meta name="twitter:description" content="Want to know tech, then take your tech with CS Geeks' Official Blog!" />
         <meta name="twitter:image" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail.jpg`} />
       </Head>
-      <div className="flex justify-center text-center w-[80vw] h-screen mt-52">
-        <h1 className="mx-auto justify-center">
+      <div className="posts-sections relative">
+        <h1 className="mx-auto w-fit height-[100px] absolute translate-x-[-50%] translate-y-[-50%] top-[50%] left-[50%]">
           CSGeeks Blog V2.0
           <br />
-          Created Using NextJS + Tailwind
+          <span className="italic">Created Using <b>NextJS + Tailwind</b></span>
         </h1>
       </div>
     </>
