@@ -10,13 +10,11 @@ import axios from "axios";
 import DisqusComments from "@/components/DisqusComments";
 
 
-function ArticlePostDetailPage({ article, profilePhotoUrl }) {
+function ArticlePostDetailPage({ article, profilePhotoUrl, formattedDate }) {
     const router = useRouter()
     const postId = router.query.postId
     const [hostUrl, sethostUrl] = useState("https://csgeeksblog.netlify.app")
     const [hostName, sethostName] = useState("csgeeksblog.netlify.app")
-    const date = new Date(article.created)
-    const formattedDate = `${date.getMonth() < 9 ? "0" : ""}${date.getMonth() + 1}/${date.getDate() < 10 ? "0" : ""}${date.getDate()}/${date.getFullYear()} ${(date.getHours() % 12)}:${date.getMinutes() < 10 ? "0" : ""}${date.getMinutes()}:${date.getSeconds() < 10 ? "0" : ""}${date.getSeconds()} ${date.getHours() > 12 ? "PM" : "AM"}`;
     
     useEffect(() => {
         if (window.location.origin !== hostUrl)
@@ -212,6 +210,8 @@ export const getStaticProps = async (ctx) => {
     let article = {}
     let profilePhotoUrl = "/avatar_dummy.svg"
     if (data.article) article = data.article
+    const date = new Date(article.created)
+    const formattedDate = `${date.getMonth() < 9 ? "0" : ""}${date.getMonth() + 1}/${date.getDate() < 10 ? "0" : ""}${date.getDate()}/${date.getFullYear()} ${(date.getHours() % 12)}:${date.getMinutes() < 10 ? "0" : ""}${date.getMinutes()}:${date.getSeconds() < 10 ? "0" : ""}${date.getSeconds()} ${date.getHours() > 12 ? "PM" : "AM"}`;
     if (data.article.author) {
         await axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/author?name=${article.author}`)
             .then(response => {
@@ -228,6 +228,7 @@ export const getStaticProps = async (ctx) => {
         props: {
             article,
             profilePhotoUrl,
+            formattedDate
         }, revalidate: 60
     }
 }
