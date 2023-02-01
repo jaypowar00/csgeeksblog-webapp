@@ -55,6 +55,9 @@
     blockquote div::first-letter {
         @apply capitalize;
     }
+    a:not(.article-title, .article-readmore, .article-image) {
+        @apply text-blue-400 hover:underline;
+    }
 }
 .hide-scrollbar {
     scrollbar-width: none;
