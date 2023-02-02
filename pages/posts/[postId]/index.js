@@ -11,7 +11,7 @@ import DisqusComments from "@/components/DisqusComments";
 import { useGeekContext } from "@/context/ShareModalContext";
 
 
-function ArticlePostDetailPage({ article, profilePhotoUrl, formattedDate }) {
+function ArticlePostDetailPage({ article, profilePhotoUrl }) {
     const router = useRouter()
     const postId = router.query.postId
     const [hostUrl, sethostUrl] = useState("https://csgeeksblog.netlify.app")
@@ -78,7 +78,7 @@ function ArticlePostDetailPage({ article, profilePhotoUrl, formattedDate }) {
                                             {article.author}
                                         </span>
                                     </div>
-                                    <span className="text-gray-600 text-sm float-right mr-1">{formattedDate}</span>
+                                    <span className="text-gray-600 text-sm float-right mr-0">{new Date(article.created).toLocaleString()}</span>
                                 </div>
                                 <div className="mt-10">
                                     <ReactMarkdown components={{ p: 'div' }} >
@@ -202,13 +202,10 @@ export const getStaticProps = async (ctx) => {
     const { postId } = params;
     let article = {}
     let profilePhotoUrl = "/avatar_dummy.svg"
-    let formattedDate = "01/01/1997 00:00 AM"
     // console.log(postId)
     await axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/post?id=${postId}`, { timeout: 60000 })
         .then(async response => {
             if (response.data.article) article = response.data.article
-            const date = new Date(article.created)
-            formattedDate = `${date.getUTCMonth() < 9 ? "0" : ""}${date.getUTCMonth() + 1}/${date.getUTCDate() < 10 ? "0" : ""}${date.getUTCDate()}/${date.getUTCFullYear()} ${(date.getUTCHours() % 12)}:${date.getUTCMinutes() < 10 ? "0" : ""}${date.getUTCMinutes()}:${date.getUTCSeconds() < 10 ? "0" : ""}${date.getUTCSeconds()} ${date.getUTCHours() > 12 ? "PM" : "AM"}`;
             if (response.data.article.author)
                 await axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/author?name=${article.author}`, { timeout: 60000 })
                     .then(response => {
@@ -219,8 +216,7 @@ export const getStaticProps = async (ctx) => {
     return {
         props: {
             article,
-            profilePhotoUrl,
-            formattedDate
+            profilePhotoUrl
         }, revalidate: 60
     }
 }
