@@ -78,7 +78,7 @@ function ArticlePostDetailPage({ article, profilePhotoUrl }) {
                                             {article.author}
                                         </span>
                                     </div>
-                                    <span className="text-gray-600 text-sm float-right mr-0">{new Date(article.created).toLocaleString()}</span>
+                                    <span className="text-gray-600 text-sm float-right mr-0" style={{fontSize: "12px"}}>{new Date(article.created).toLocaleString('en-US', {hour12: true})}</span>
                                 </div>
                                 <div className="mt-10">
                                     <ReactMarkdown components={{ p: 'div' }} >
