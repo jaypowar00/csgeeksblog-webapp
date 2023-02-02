@@ -1,5 +1,5 @@
 import { Button, Modal } from "reactstrap";
-import { useShowModalContext } from "../context/ShareModalContext";
+import { useGeekContext } from "../context/ShareModalContext";
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
 import { useRouter } from "next/router";
@@ -9,7 +9,7 @@ function ShareModal() {
 
     const { asPath } = useRouter();
 
-    const { modalShareOpen, setModalShareOpen } = useShowModalContext()
+    const { modalShareOpen, setModalShareOpen } = useGeekContext()
     // const [modalShareOpen, setModalShareOpen] = useState(false)
 
     const copyUrl = async () => {

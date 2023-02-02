@@ -2,16 +2,17 @@ const { createContext, useContext, useState } = require("react");
 
 const ShareModalContext = createContext()
 
-export const ShareModalWrapper = ({children}) => {
+export const ShareContextWrapper = ({children}) => {
     const [modalShareOpen, setModalShareOpen] = useState(false)
+    const [sidebarMinimize, setSidebarMinimize] = useState(false)
     return (
         <ShareModalContext.Provider value={{
-            modalShareOpen,
-            setModalShareOpen
+            modalShareOpen, setModalShareOpen,
+            sidebarMinimize, setSidebarMinimize
         }}>
             {children}
         </ShareModalContext.Provider>
     )
 }
 
-export let useShowModalContext = () => useContext(ShareModalContext)
+export let useGeekContext = () => useContext(ShareModalContext)
