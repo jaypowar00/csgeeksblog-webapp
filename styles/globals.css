@@ -40,7 +40,7 @@
                 duration-200 transition-all ease-in-out;
     }
     .sidebar-minimized {
-        @apply -ml-[5.9rem];
+        @apply -ml-[6rem];
     }
     .sidebar-tooltip {
         @apply absolute m-2 p-2 w-auto min-w-max rounded-md shadow-md
@@ -82,13 +82,6 @@
     }
     .sidebar-minimizer .sidebar-icon-svg {
         border-radius: 9999px !important;
-    }
-    .sidebar-minimizer > .sidebar-icon-svg:active {
-        border-radius: 9999px !important;
-        outline: none !important;
-        border-style: none;
-        text-decoration-style: none;
-        text-decoration: none;
     }
 }
 .hide-scrollbar {
