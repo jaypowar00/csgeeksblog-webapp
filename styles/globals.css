@@ -16,6 +16,18 @@
                 xl:min-h-[4rem] xl:h-16 xl:w-16 xl:mt-[11px] xl:mb-[3px]
                 2xl:min-h-[4.5rem] 2xl:h-[4.5rem] 2xl:w-[4.5rem] 2xl:mt-[11px] 2xl:mb-[2px];
     }
+    .sidebar-minimizer {
+        @apply fixed flex items-center justify-center text-gray-800 bg-green-500 hover:text-gray-800 hover:bg-gray-400
+                rounded-full transition-all cursor-pointer rotate-[90deg] ease-in-out duration-200 z-10
+                h-10 w-10 bottom-[3.95rem] left-20
+                2xl:bottom-[4.4rem] 2xl:left-20 xl:h-10 xl:w-10 xl:bottom-[3.9rem] xl:left-[4.3rem]
+                md:bottom-[3.45rem] md:left-[3.9rem] md:h-8 md:w-8
+                sm:bottom-[2.9rem] sm:left-[3.2rem] sm:h-[1.85rem] sm:w-[1.85rem]
+                max-[640px]:bottom-[2.8rem] max-[640px]:left-[3.2rem] max-[640px]:h-[1.85rem] max-[640px]:w-[1.85rem];
+    }
+    .sidebar-minimized .sidebar-minimizer{
+        @apply  -rotate-[90deg] !left-2 !bottom-2 !h-10 !w-10;
+    }
     .sidebar-icon-svg {
         @apply text-xl md:text-[26px] xl:text-3xl ;
     }
@@ -24,7 +36,11 @@
     }
     .sidebar-icon-section {
         @apply absolute w-16 md:w-[4.7rem] xl:w-[5.3rem] 2xl:w-24
-                overflow-y-scroll h-screen overflow-x-hidden z-10;
+                overflow-y-scroll h-screen overflow-x-hidden z-10
+                duration-200 transition-all ease-in-out;
+    }
+    .sidebar-minimized {
+        @apply -ml-[5.9rem];
     }
     .sidebar-tooltip {
         @apply absolute m-2 p-2 w-auto min-w-max rounded-md shadow-md
@@ -40,11 +56,17 @@
     }
     .main-container {
         @apply text-white
-                pl-[4.1rem] 2xl:pl-[6.5rem] xl:pl-[5.75rem] lg:pl-20 md:pl-[5rem] sm:pl-[4.3rem];
+                pl-[4.1rem] 2xl:pl-[6.5rem] xl:pl-[5.75rem] lg:pl-20 md:pl-[5rem] sm:pl-[4.3rem] transition-all duration-200 ease-in-out;
     }
     .posts-sections {
-        @apply bg-gray-900 h-screen fixed overflow-y-scroll hide-scrollbar
+        @apply bg-gray-900 h-screen fixed overflow-y-scroll hide-scrollbar transition-all duration-200 ease-in-out
                 w-[89vw] sm:w-[93vw] md:w-[93.6vw] md:pr-6 max-[1023px]:pr-[1.5rem] xl:w-[94vw] xl:pr-6 2xl:w-[95vw] 2xl:pr-5;
+    }
+    .main-container-minimized {
+        @apply !pl-[0rem];
+    }
+    .sidebar-minimized-posts-sections {
+        @apply w-screen !p-0;
     }
     blockquote {
         @apply p-4 my-4 border-l-4 border-gray-300 bg-gray-100 dark:border-gray-600 dark:bg-gray-800;
@@ -57,6 +79,16 @@
     }
     a:not(.article-title, .article-readmore, .article-image, .footer-title, .footer-mini-title, .error-home-btn) {
         @apply text-blue-400 hover:underline;
+    }
+    .sidebar-minimizer .sidebar-icon-svg {
+        border-radius: 9999px !important;
+    }
+    .sidebar-minimizer > .sidebar-icon-svg:active {
+        border-radius: 9999px !important;
+        outline: none !important;
+        border-style: none;
+        text-decoration-style: none;
+        text-decoration: none;
     }
 }
 .hide-scrollbar {
