@@ -4,8 +4,8 @@ const DisqusComments = ({ article, hostUrl }) => {
     const disqusShortname = "csgeeks"
     const disqusConfig = {
         url: `${hostUrl}/posts/${article._id}`,
-        identifier: article._id, // Single article id
-        title: article.title // Single article title
+        identifier: `${article._id}`, // Single article id
+        title: `${article.title}` // Single article title
     }
 
     return (
