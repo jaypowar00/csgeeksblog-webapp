@@ -36,7 +36,7 @@ function Home() {
         <meta name="twitter:description" content="Want to know tech, then take your tech with CS Geeks' Official Blog!" />
         <meta name="twitter:image" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail.jpg`} />
       </Head>
-      <div className="posts-sections relative">
+      <div className="posts-sections">
         <h1 className="mx-auto w-fit height-[100px] absolute translate-x-[-50%] translate-y-[-50%] top-[50%] left-[50%]">
           CSGeeks Blog V2.0
           <br />
