@@ -93,7 +93,7 @@ function ArticlePostDetailPage({ article, profilePhotoUrl, formattedDate }) {
                                         ))}
                                     </span>
                                 </div>
-                                <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
+                                <hr className="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
                                 <DisqusComments article={article} hostUrl={hostUrl} />
                             </div>
                         </article>
