@@ -55,7 +55,7 @@
     blockquote div::first-letter {
         @apply capitalize;
     }
-    a:not(.article-title, .article-readmore, .article-image, .footer-title, .footer-mini-title) {
+    a:not(.article-title, .article-readmore, .article-image, .footer-title, .footer-mini-title, .error-home-btn) {
         @apply text-blue-400 hover:underline;
     }
 }
