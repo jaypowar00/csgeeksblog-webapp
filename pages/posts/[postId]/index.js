@@ -15,14 +15,14 @@ function ArticlePostDetailPage({ article, profilePhotoUrl, formattedDate }) {
     const postId = router.query.postId
     const [hostUrl, sethostUrl] = useState("https://csgeeksblog.netlify.app")
     const [hostName, sethostName] = useState("csgeeksblog.netlify.app")
-    
+
     useEffect(() => {
         if (window.location.origin !== hostUrl)
-        sethostUrl(window.location.origin)
+            sethostUrl(window.location.origin)
         if (window.location.host !== hostName)
-        sethostName(window.location.host)
+            sethostName(window.location.host)
     }, [])
-    
+
     if (router.isFallback) {
         return (<h1>Loading...</h1>)
     }
@@ -181,20 +181,12 @@ function ArticlePostDetailPage({ article, profilePhotoUrl, formattedDate }) {
 export default ArticlePostDetailPage;
 
 export async function getStaticPaths(ctx) {
-    const response = await fetch(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/posts`)
-    const data = await response.json()
-    let count = 0;
     let paths = []
-    if (data.articles) {
-        data.articles.forEach((article) => {
-            if (count < 1) {
-                paths.push({ params: { postId: `${article._id}` } })
-                count += 1
-            }
-        })
-    }
-    // console.log('paths')
-    // console.log(paths)
+    await axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/posts`, { timeout: 60000 })
+        .then(response => {
+            if (response.data.articles)
+                paths = response.data.articles.map(article => { params: { postId: `${article._id}` } })
+        }).catch(err => console.log(err))
     return {
         paths,
         fallback: true
@@ -204,26 +196,22 @@ export async function getStaticPaths(ctx) {
 export const getStaticProps = async (ctx) => {
     const { params } = ctx;
     const { postId } = params;
-    // console.log(postId)
-    const response = await fetch(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/post?id=${postId}`)
-    const data = await response.json()
     let article = {}
     let profilePhotoUrl = "/avatar_dummy.svg"
-    if (data.article) article = data.article
-    const date = new Date(article.created)
-    const formattedDate = `${date.getMonth() < 9 ? "0" : ""}${date.getMonth() + 1}/${date.getDate() < 10 ? "0" : ""}${date.getDate()}/${date.getFullYear()} ${(date.getHours() % 12)}:${date.getMinutes() < 10 ? "0" : ""}${date.getMinutes()}:${date.getSeconds() < 10 ? "0" : ""}${date.getSeconds()} ${date.getHours() > 12 ? "PM" : "AM"}`;
-    if (data.article.author) {
-        await axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/author?name=${article.author}`)
-            .then(response => {
-                if (response.data.author && response.data.author.profile_photo)
-                    profilePhotoUrl = response.data.author.profile_photo
-            })
-            .catch(err => {
-                setProfilePhotoUrl("/avatar_dummy.svg")
-            })
-            .finally(() => {
-            })
-    }
+    let formattedDate = "01/01/1997 00:00 AM"
+    // console.log(postId)
+    await axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/post?id=${postId}`, { timeout: 60000 })
+        .then(async response => {
+            if (response.data.article) article = response.data.article
+            date = new Date(article.created)
+            formattedDate = `${date.getMonth() < 9 ? "0" : ""}${date.getMonth() + 1}/${date.getDate() < 10 ? "0" : ""}${date.getDate()}/${date.getFullYear()} ${(date.getHours() % 12)}:${date.getMinutes() < 10 ? "0" : ""}${date.getMinutes()}:${date.getSeconds() < 10 ? "0" : ""}${date.getSeconds()} ${date.getHours() > 12 ? "PM" : "AM"}`;
+            if (response.data.article.author)
+                await axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/author?name=${article.author}`, { timeout: 60000 })
+                    .then(response => {
+                        if (response.data.author && response.data.author.profile_photo)
+                            profilePhotoUrl = response.data.author.profile_photo
+                    }).catch(err => console.log(err))
+        }).catch(err => console.log(err))
     return {
         props: {
             article,

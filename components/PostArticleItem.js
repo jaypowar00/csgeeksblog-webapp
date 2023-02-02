@@ -16,7 +16,7 @@ function PostArticleItem({
 
     useEffect(() => {
         const getProfilePhoto = async () => {
-            axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/author?name=${author}`)
+            axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/author?name=${author}`, { timeout: 60000 })
                 .then(response => {
                     if (response.data.author && response.data.author.profile_photo)
                     setProfilePhotoUrl(response.data.author.profile_photo)
