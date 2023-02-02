@@ -1,4 +1,5 @@
 import PostArticleItem from "@/components/PostArticleItem";
+import { useGeekContext } from "@/context/ShareModalContext";
 import axios from "axios";
 import Head from "next/head";
 import { useEffect, useState } from "react";
@@ -8,6 +9,7 @@ import { useEffect, useState } from "react";
 function Posts({ articles }) {
     const [hostUrl, sethostUrl] = useState("https://csgeeksblog.netlify.app")
     const [hostName, sethostName] = useState("csgeeksblog.netlify.app")
+    const { sidebarMinimize } = useGeekContext()
 
     useEffect(() => {
         if (window.location.origin !== hostUrl)
@@ -43,18 +45,20 @@ function Posts({ articles }) {
                 <meta name="twitter:description" content="See whats happening inside CSGeekBlog. Maybe some one posted your article? WhoKnows..." />
                 <meta name="twitter:image" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail.jpg`} />
             </Head>
-            <section className="posts-sections">
-                <div className="py-8 px-4 mx-auto lg:py-16 lg:px-6">
-                    <div className="grid gap-8 pb-32 lg:grid-cols-2">
-                        {articles.map((article) => (
-                            <PostArticleItem key={article._id}
-                                id={article._id} author={article.author} title={article.title}
-                                description={article.description} created={article.created}
-                                tags={article.tags} thumbnail={article.thumbnail} />
-                        ))}
+            <div className={`main-container ${sidebarMinimize ? 'main-container-minimized' : ''}`}>
+                <section className={`posts-sections ${sidebarMinimize ? 'sidebar-minimized-posts-sections' : ''}`}>
+                    <div className="py-8 px-4 mx-auto lg:py-16 lg:px-6">
+                        <div className="grid gap-8 pb-32 lg:grid-cols-2">
+                            {articles.map((article) => (
+                                <PostArticleItem key={article._id}
+                                    id={article._id} author={article.author} title={article.title}
+                                    description={article.description} created={article.created}
+                                    tags={article.tags} thumbnail={article.thumbnail} />
+                            ))}
+                        </div>
                     </div>
-                </div>
-            </section>
+                </section>
+            </div>
         </>
     );
 }

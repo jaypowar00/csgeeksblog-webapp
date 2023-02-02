@@ -1,8 +1,10 @@
+import { useGeekContext } from "@/context/ShareModalContext";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 function Home() {
   const [hostUrl, sethostUrl] = useState("https://csgeeksblog.netlify.app")
   const [hostName, sethostName] = useState("csgeeksblog.netlify.app")
+  const { sidebarMinimize } = useGeekContext()
   useEffect(() => {
     if (window.location.origin !== hostUrl)
       sethostUrl(window.location.origin)
@@ -16,7 +18,7 @@ function Home() {
         <title>CSGeeks Blog</title>
         <meta name="description" content="Official CS Geeks Blog, know the tech, feel the tech! A place for tech." />
         <meta property="og:type" content="article" />
-        <meta name="author" content="Jay Powar"/>
+        <meta name="author" content="Jay Powar" />
         <meta property="og:image" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail.jpg`} />
         <meta property="og:image:secure" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail.jpg`} />
         <meta property="og:image:width" content="526" />
@@ -36,12 +38,15 @@ function Home() {
         <meta name="twitter:description" content="Want to know tech, then take your tech with CS Geeks' Official Blog!" />
         <meta name="twitter:image" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail.jpg`} />
       </Head>
-      <div className="posts-sections">
-        <h1 className="mx-auto w-fit height-[100px] absolute translate-x-[-50%] translate-y-[-50%] top-[50%] left-[50%]">
-          CSGeeks Blog V2.0
-          <br />
-          <span className="italic">Created Using <b>NextJS + Tailwind</b></span>
-        </h1>
+
+      <div className={`main-container ${sidebarMinimize ? 'main-container-minimized' : ''}`}>
+        <div className={`posts-sections ${sidebarMinimize ? 'sidebar-minimized-posts-sections' : ''}`}>
+          <h1 className="mx-auto w-fit height-[100px] absolute translate-x-[-50%] translate-y-[-50%] top-[50%] left-[50%]">
+            CSGeeks Blog V2.0
+            <br />
+            <span className="italic">Created Using <b>NextJS + Tailwind</b></span>
+          </h1>
+        </div>
       </div>
     </>
   );

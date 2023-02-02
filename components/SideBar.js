@@ -7,7 +7,8 @@ import InfoOutlinedIcon from '@mui/icons-material/InfoOutlined';
 import PolicyOutlinedIcon from '@mui/icons-material/PolicyOutlined';
 import AddCircleOutlinedIcon from '@mui/icons-material/AddCircleOutlined';
 import HomeIcon from '@mui/icons-material/Home';
-import { useShowModalContext } from '../context/ShareModalContext';
+import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
+import { useGeekContext } from '../context/ShareModalContext';
 import Link from 'next/link';
 
 let timeout = null;
@@ -59,9 +60,13 @@ async function cancleAllTimeouts() {
     }
 }
 function SideBar() {
+    let {sidebarMinimize, setSidebarMinimize} = useGeekContext()
     return (
-        <div onScrollCapture={() => { cancleAllTimeouts() }} className='hide-scrollbar sidebar-icon-section' id="sidebar-dynamic-section">
+        <div onScrollCapture={() => { cancleAllTimeouts() }} className={`hide-scrollbar sidebar-icon-section ${sidebarMinimize?`sidebar-minimized`:``}`} id="sidebar-dynamic-section">
             <div className="sidebar-icon-container">
+                <div className='sidebar-minimizer rounded-full'>
+                    <ExpandMoreOutlinedIcon className='sidebar-icon-svg' onClick={() => {localStorage.setItem('minimized', !sidebarMinimize);setSidebarMinimize(!sidebarMinimize)}} />
+                </div>
                 <SideBarIcon text='Home' url="/" home={true} icon={<HomeIcon className='sidebar-icon-svg' />} />
                 <SideBarIcon text='Posts' url="/posts" icon={<GridViewOutlinedIcon className='sidebar-icon-svg' />} />
                 <SideBarIcon text='Search' url="/posts/search" icon={<SearchOutlinedIcon className='sidebar-icon-svg' />} />
@@ -83,7 +88,7 @@ function SideBar() {
 }
 
 function SideBarIcon({ icon, text = 'tooltip', modalShareOpener = false, home = false, url = "#" }) {
-    let {setModalShareOpen} = useShowModalContext()
+    let {setModalShareOpen} = useGeekContext()
     return (
         <Link href={url}>
             <div className="sidebar-icon group" onClick={() => {(modalShareOpener)?setModalShareOpen(true):null}}
