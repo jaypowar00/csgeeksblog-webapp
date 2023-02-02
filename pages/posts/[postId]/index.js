@@ -208,7 +208,7 @@ export const getStaticProps = async (ctx) => {
         .then(async response => {
             if (response.data.article) article = response.data.article
             const date = new Date(article.created)
-            formattedDate = `${date.getMonth() < 9 ? "0" : ""}${date.getMonth() + 1}/${date.getDate() < 10 ? "0" : ""}${date.getDate()}/${date.getFullYear()} ${(date.getHours() % 12)}:${date.getMinutes() < 10 ? "0" : ""}${date.getMinutes()}:${date.getSeconds() < 10 ? "0" : ""}${date.getSeconds()} ${date.getHours() > 12 ? "PM" : "AM"}`;
+            formattedDate = `${date.getUTCMonth() < 9 ? "0" : ""}${date.getUTCMonth() + 1}/${date.getUTCDate() < 10 ? "0" : ""}${date.getUTCDate()}/${date.getUTCFullYear()} ${(date.getUTCHours() % 12)}:${date.getUTCMinutes() < 10 ? "0" : ""}${date.getUTCMinutes()}:${date.getUTCSeconds() < 10 ? "0" : ""}${date.getUTCSeconds()} ${date.getUTCHours() > 12 ? "PM" : "AM"}`;
             if (response.data.article.author)
                 await axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/author?name=${article.author}`, { timeout: 60000 })
                     .then(response => {
