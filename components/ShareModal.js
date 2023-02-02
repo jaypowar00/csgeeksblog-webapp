@@ -35,7 +35,7 @@ function ShareModal() {
             className="modal-success modal-dialog-centered"
             toggle={() => setModalShareOpen(false)}
         >
-            <div className="modal-header bg-green-700">
+            <div className="modal-header bg-gray-700">
                 <h6 className="modal-title ml-auto select-none" id="modal-title-notification">
                     Share!
                 </h6>
@@ -48,7 +48,7 @@ function ShareModal() {
                     <span aria-hidden={true}>x</span>
                 </button>
             </div>
-            <div className="modal-body">
+            <div className="modal-body bg-gray-800">
                 <div className=" pb-3 text-center">
                     <h4 className="heading -mt-3"><u>Share / Copy current page URL</u></h4>
                     <p>
@@ -63,7 +63,7 @@ function ShareModal() {
                     </p>
                 </div>
             </div>
-            <div className="modal-footer bg-green-700 h-2" style={{ flexWrap: 'nowrap' }}>
+            <div className="modal-footer bg-gray-700 h-2" style={{ flexWrap: 'nowrap' }}>
                 <Button
                     className=" text-white ml-auto my-0 "
                     color="link"
