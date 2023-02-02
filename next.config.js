@@ -7,7 +7,12 @@ const nextConfig = {
         hostname: '*'
       }
     ]
-  }
+  },
+  rewrites: async () => {
+    return {
+      beforeFiles: [{source: '/posts/:id([^0-9]+)', destination: '/404'}],
+    }
+  },
 }
 
 module.exports = nextConfig
