@@ -91,7 +91,7 @@ function ArticlePostDetailPage({ article, profilePhotoUrl }) {
                                             </span>
                                             {article.tags.map(tag => (
                                                 <span key={tag} className="py-[3px] px-2 mr-2 my-2 bg-gray-700 rounded-2xl hover:cursor-pointer hover:bg-gray-900">
-                                                    {tag}
+                                                    <Link className="!text-green-600 hover:!no-underline" href={`/tag/${tag}/posts`}>{tag}</Link>
                                                 </span>
                                             ))}
                                         </span>

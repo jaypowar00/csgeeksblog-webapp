@@ -1,3 +1,4 @@
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 function PostArticleTagList({ tags }) {
@@ -34,9 +35,6 @@ function PostArticleTagList({ tags }) {
         if(maxLength == -1) handleResize()
     }, [])
 
-
-
-
     return (
         <>
             {
@@ -46,7 +44,7 @@ function PostArticleTagList({ tags }) {
                         keyid += 1
                         return (
                             <span key={keyid} className="py-[3px] px-2 mr-2 bg-gray-700 rounded-2xl hover:cursor-pointer hover:bg-gray-900">
-                                {tag}
+                                <Link className="!text-green-600 hover:!no-underline" href={`/tag/${tag}/posts`}>{tag}</Link>
                             </span>
                         )
                     }
