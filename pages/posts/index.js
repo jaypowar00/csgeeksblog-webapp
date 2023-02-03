@@ -4,8 +4,6 @@ import axios from "axios";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 
-
-
 function Posts({ articles }) {
     const [hostUrl, sethostUrl] = useState("https://csgeeksblog.netlify.app")
     const [hostName, sethostName] = useState("csgeeksblog.netlify.app")
