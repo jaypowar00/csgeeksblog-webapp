@@ -11,15 +11,16 @@ function ArticlesByTagsPage({ articles = [], tagName }) {
     const { sidebarMinimize } = useGeekContext()
     const router = useRouter()
 
-    if (router.fallback) {
-        return (<h1>Loading...</h1>)
-    }
     useEffect(() => {
         if (window.location.origin !== hostUrl)
             sethostUrl(window.location.origin)
         if (window.location.host !== hostName)
             sethostName(window.location.host)
     }, [])
+    
+    if (router.fallback) {
+        return (<h1>Loading...</h1>)
+    }
 
     return (
         <>
