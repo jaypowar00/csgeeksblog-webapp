@@ -10,6 +10,7 @@ import HomeIcon from '@mui/icons-material/Home';
 import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import { useGeekContext } from '../context/ShareModalContext';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 let timeout = null;
 let long_timeout = null;
@@ -89,9 +90,20 @@ function SideBar() {
 
 function SideBarIcon({ icon, text = 'tooltip', modalShareOpener = false, home = false, url = "#" }) {
     let {setModalShareOpen} = useGeekContext()
+    const router = useRouter()
+    const highlight = (url) === ((router.asPath.length <= 1)?'/'
+    :(router.asPath.replace('#','').endsWith('/')?
+    router.asPath.replace('#','').substring(0, router.asPath.replace('#','').length-1)
+    :router.asPath.replace('#','')))
+    console.log('highlight')
+    console.log(highlight)
+    console.log(router.asPath.replace('#',''))
+    console.log('equals')
+    console.log(router.asPath.replace('#','').substring(0, router.asPath.replace('#','').length-1))
+    console.log(router.asPath)
     return (
         <Link href={url}>
-            <div className="sidebar-icon group" onClick={() => {(modalShareOpener)?setModalShareOpen(true):null}}
+            <div className={`sidebar-icon group ${highlight?`bg-green-600 text-white`:``}`} onClick={() => {(modalShareOpener)?setModalShareOpen(true):null}}
                 onScrollCapture={() => { cancleAllTimeouts() }}
                 onMouseEnter={() => { hoveredOnTag(true) }} onMouseLeave={() => { hoveredOnTag(false) }}
                 onTouchStart={() => { mobileLongPressDetect(true) }} onTouchEnd={() => mobileLongPressDetect(false)}>
