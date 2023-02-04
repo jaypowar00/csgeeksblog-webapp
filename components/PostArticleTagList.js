@@ -1,11 +1,36 @@
+import { useGeekContext } from "@/context/ShareModalContext";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
 
 function PostArticleTagList({ tags }) {
+    const { userTagsShortcut, setUserTagsShortcut, sidebarUpdate } = useGeekContext()
+    const router = useRouter()
     let length = 0
     let keyid = 0
     const [maxLength, setMaxLength] = useState(-1)
     let widthWindow = null
+    let timeout = null
+
+    const handleClick = (e, tag) => {
+        e.preventDefault()
+        clearTimeout(timeout)
+        if (e.detail === 1)
+            timeout = setTimeout(() => { router.push(`/tag/${tag}/posts`) }, 200)
+        else if (e.detail === 2) {
+            if (userTagsShortcut.indexOf(tag) === -1) {
+                let userTagsShortcutList = userTagsShortcut
+                userTagsShortcutList.push(tag)
+                setUserTagsShortcut(userTagsShortcutList)
+                localStorage.setItem('user.tags', userTagsShortcutList)
+                toast.success("Sidebar shortcut created!", { duration: 2000 })
+                sidebarUpdate()
+            }else {
+                toast.error("Sidebar shortcut exists!", { duration: 2000 })
+            }
+        }
+    }
 
     useEffect(() => {
         if (widthWindow == null) widthWindow = window.innerWidth
@@ -32,7 +57,7 @@ function PostArticleTagList({ tags }) {
             }
         }
         window.addEventListener('resize', handleResize)
-        if(maxLength == -1) handleResize()
+        if (maxLength == -1) handleResize()
     }, [])
 
     return (
@@ -44,7 +69,13 @@ function PostArticleTagList({ tags }) {
                         keyid += 1
                         return (
                             <span key={keyid} className="py-[3px] px-2 mr-2 bg-gray-700 rounded-2xl hover:cursor-pointer hover:bg-gray-900">
-                                <Link className="!text-green-600 hover:!no-underline" href={`/tag/${tag}/posts`}>{tag}</Link>
+                                <Link
+                                    className="!text-green-600 hover:!no-underline"
+                                    href={`/tag/${tag}/posts`}
+                                    onClick={e => handleClick(e, tag)}
+                                >
+                                    {tag}
+                                </Link>
                             </span>
                         )
                     }

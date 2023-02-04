@@ -9,6 +9,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import DisqusComments from "@/components/DisqusComments";
 import { useGeekContext } from "@/context/ShareModalContext";
+import { toast } from "react-hot-toast";
 
 
 function ArticlePostDetailPage({ article, profilePhotoUrl }) {
@@ -16,7 +17,8 @@ function ArticlePostDetailPage({ article, profilePhotoUrl }) {
     const postId = router.query.postId
     const [hostUrl, sethostUrl] = useState("https://csgeeksblog.netlify.app")
     const [hostName, sethostName] = useState("csgeeksblog.netlify.app")
-    const { sidebarMinimize } = useGeekContext()
+    const { sidebarMinimize, userTagsShortcut, setUserTagsShortcut } = useGeekContext()
+    let timeout = null
 
     useEffect(() => {
         if (window.location.origin !== hostUrl)
@@ -27,6 +29,24 @@ function ArticlePostDetailPage({ article, profilePhotoUrl }) {
 
     if (router.isFallback) {
         return (<h1>Loading...</h1>)
+    }
+
+    const handleClick = (e, tag) => {
+        e.preventDefault()
+        clearTimeout(timeout)
+        if (e.detail === 1)
+            timeout = setTimeout(() => { router.push(`/tag/${tag}/posts`) }, 200)
+        else if (e.detail === 2) {
+            if (userTagsShortcut.indexOf(tag) === -1) {
+                let userTagsShortcutList = userTagsShortcut
+                userTagsShortcutList.push(tag)
+                setUserTagsShortcut(userTagsShortcutList)
+                localStorage.setItem('user.tags', userTagsShortcutList)
+                toast.success("Sidebar shortcut created!", { duration: 2000 })
+            } else {
+                toast.error("Sidebar shortcut exists!", { duration: 2000 })
+            }
+        }
     }
 
     return (
@@ -78,7 +98,7 @@ function ArticlePostDetailPage({ article, profilePhotoUrl }) {
                                             {article.author}
                                         </span>
                                     </div>
-                                    <span className="text-gray-600 text-sm float-right mr-0" style={{fontSize: "12px"}}>{new Date(article.created).toLocaleString('en-US', {hour12: true})}</span>
+                                    <span className="text-gray-600 text-sm float-right mr-0" style={{ fontSize: "12px" }}>{new Date(article.created).toLocaleString('en-US', { hour12: true })}</span>
                                 </div>
                                 <div className="mt-10">
                                     <ReactMarkdown components={{ p: 'div' }} >
@@ -91,7 +111,7 @@ function ArticlePostDetailPage({ article, profilePhotoUrl }) {
                                             </span>
                                             {article.tags.map(tag => (
                                                 <span key={tag} className="py-[3px] px-2 mr-2 my-2 bg-gray-700 rounded-2xl hover:cursor-pointer hover:bg-gray-900">
-                                                    <Link className="!text-green-600 hover:!no-underline" href={`/tag/${tag}/posts`}>{tag}</Link>
+                                                    <Link className="!text-green-600 hover:!no-underline" href={`/tag/${tag}/posts`} onClick={e => handleClick(e, tag)}>{tag}</Link>
                                                 </span>
                                             ))}
                                         </span>

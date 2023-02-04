@@ -11,6 +11,7 @@ import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import { useGeekContext } from '../context/ShareModalContext';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 let timeout = null;
 let long_timeout = null;
@@ -61,12 +62,17 @@ async function cancleAllTimeouts() {
     }
 }
 function SideBar() {
-    let {sidebarMinimize, setSidebarMinimize} = useGeekContext()
+    const [, updateState] = useState();
+    const sidebarUpdate = useCallback(() => updateState({}), []);
+    let { sidebarMinimize, setSidebarMinimize, userTagsShortcut, setSidebarUpdate } = useGeekContext()
+    setSidebarUpdate(sidebarUpdate)
+    useEffect(() => { }, [userTagsShortcut])
+
     return (
-        <div onScrollCapture={() => { cancleAllTimeouts() }} className={`hide-scrollbar sidebar-icon-section ${sidebarMinimize?`sidebar-minimized`:``}`} id="sidebar-dynamic-section">
+        <div onScrollCapture={() => { cancleAllTimeouts() }} className={`hide-scrollbar sidebar-icon-section ${sidebarMinimize ? `sidebar-minimized` : ``}`} id="sidebar-dynamic-section">
             <div className="sidebar-icon-container">
                 <div className='sidebar-minimizer rounded-full'>
-                    <ExpandMoreOutlinedIcon className='sidebar-icon-svg' onClick={() => {localStorage.setItem('minimized', !sidebarMinimize);setSidebarMinimize(!sidebarMinimize)}} />
+                    <ExpandMoreOutlinedIcon className='sidebar-icon-svg' onClick={() => { localStorage.setItem('minimized', !sidebarMinimize); setSidebarMinimize(!sidebarMinimize) }} />
                 </div>
                 <SideBarIcon text='Home' url="/" home={true} icon={<HomeIcon className='sidebar-icon-svg' />} />
                 <SideBarIcon text='Posts' url="/posts" icon={<GridViewOutlinedIcon className='sidebar-icon-svg' />} />
@@ -77,7 +83,8 @@ function SideBar() {
                 <SideBarIcon text='Privacy Policy' url="/privacypolicy" icon={<PolicyOutlinedIcon className='sidebar-icon-svg' />} />
                 <SideBarIcon text='About' url="/about" icon={<InfoOutlinedIcon className='sidebar-icon-svg' />} />
                 <hr className='sidebar-icon-linebreak' />
-                <UserAddedSideIcons tagName={"Anime"} />
+                {userTagsShortcut.map(userTag => (<UserAddedSideIcons key={userTag} tagName={userTag} />))}
+                {/* <UserAddedSideIcons tagName={"anime"} /> */}
                 {/* <UserAddedSideIcons tagName={"Technology"} /> */}
                 {/* <UserAddedSideIcons tagName={"Science"} /> */}
                 {/* <UserAddedSideIcons tagName={"DBZ"} /> */}
@@ -89,21 +96,15 @@ function SideBar() {
 }
 
 function SideBarIcon({ icon, text = 'tooltip', modalShareOpener = false, home = false, url = "#" }) {
-    let {setModalShareOpen} = useGeekContext()
+    let { setModalShareOpen } = useGeekContext()
     const router = useRouter()
-    const highlight = (url) === ((router.asPath.length <= 1)?'/'
-    :(router.asPath.replace('#','').endsWith('/')?
-    router.asPath.replace('#','').substring(0, router.asPath.replace('#','').length-1)
-    :router.asPath.replace('#','')))
-    console.log('highlight')
-    console.log(highlight)
-    console.log(router.asPath.replace('#',''))
-    console.log('equals')
-    console.log(router.asPath.replace('#','').substring(0, router.asPath.replace('#','').length-1))
-    console.log(router.asPath)
+    const highlight = (url) === ((router.asPath.length <= 1) ? '/'
+        : (router.asPath.replace('#', '').endsWith('/') ?
+            router.asPath.replace('#', '').substring(0, router.asPath.replace('#', '').length - 1)
+            : router.asPath.replace('#', '')))
     return (
-        <Link href={url}>
-            <div className={`sidebar-icon group ${highlight?`bg-green-600 text-white`:``}`} onClick={() => {(modalShareOpener)?setModalShareOpen(true):null}}
+        <Link href={url !== "#" ? url : router.asPath}>
+            <div className={`sidebar-icon group ${highlight ? `bg-green-600 text-white` : ``}`} onClick={() => { (modalShareOpener) ? setModalShareOpen(true) : null }}
                 onScrollCapture={() => { cancleAllTimeouts() }}
                 onMouseEnter={() => { hoveredOnTag(true) }} onMouseLeave={() => { hoveredOnTag(false) }}
                 onTouchStart={() => { mobileLongPressDetect(true) }} onTouchEnd={() => mobileLongPressDetect(false)}>
@@ -117,10 +118,31 @@ function SideBarIcon({ icon, text = 'tooltip', modalShareOpener = false, home = 
 }
 
 function UserAddedSideIcons({ tagName }) {
+    const { setSelectedTag, setModalTagOptionsOpen } = useGeekContext()
+    const router = useRouter()
+    const isLongPress = useRef()
+    const isSingleClick = useRef()
     const tagname = `${tagName}`;
+    const handleOnClick = (e) => {
+        e.preventDefault()
+        clearTimeout(isSingleClick.current)
+        if (e.detail === 1)
+            isSingleClick.current = setTimeout(() => { router.push(`/tag/${tagName}/posts`) }, 200)
+        else if (e.detail === 2)
+            handleTagOptions()
+
+        console.log('click')
+    }
+    const handleTagOptions = () => {
+        setSelectedTag(tagName)
+        setModalTagOptionsOpen(true)
+    }
     return (
-        <div>
-            <div className='user-sidebar-icon sidebar-icon group' onClick={() => { alert('clicked') }}
+        <Link className="hover:!no-underline" href={`/tag/${tagName}/posts`}
+            onClick={handleOnClick}
+            onContextMenu={e => { e.preventDefault(); handleTagOptions() }}>
+
+            <div className='user-sidebar-icon sidebar-icon group'
                 onScrollCapture={() => { cancleAllTimeouts() }}
                 onMouseEnter={() => { hoveredOnTag(true) }} onMouseLeave={() => { hoveredOnTag(false) }}
                 onTouchStart={() => { mobileLongPressDetect(true) }} onTouchEnd={() => mobileLongPressDetect(false)}>
@@ -129,7 +151,7 @@ function UserAddedSideIcons({ tagName }) {
                     {tagName}
                 </span>
             </div>
-        </div>
+        </Link>
     )
 }
 
