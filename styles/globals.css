@@ -4,9 +4,14 @@
 
 @layer components {
     .sidebar-icon-container {
-        @apply absolute top-0 left-0 h-screen
-                w-16 m-0 flex flex-col bg-gray-900 text-white shadow-lg
-                md:w-[4.7rem] xl:w-[5.3rem] 2xl:w-24 pb-2;
+        @apply absolute top-0 left-0 h-fit
+                w-16 m-0 flex flex-col text-white shadow-lg
+                md:w-[4.7rem] xl:w-[5.3rem] 2xl:w-24 pb-28;
+    }
+    .sidebar-icon-section-bg {
+        @apply fixed top-0 left-0 h-screen -z-50
+                w-16 m-0 flex flex-col bg-gray-900  shadow-lg
+                md:w-[4.7rem] xl:w-[5.3rem] 2xl:w-24;
     }
     .sidebar-icon {
         @apply relative flex items-center justify-center bg-gray-800 text-green-500
