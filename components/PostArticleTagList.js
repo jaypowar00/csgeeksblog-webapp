@@ -5,7 +5,7 @@ import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 
 function PostArticleTagList({ tags }) {
-    const { userTagsShortcut, setUserTagsShortcut, sidebarUpdate } = useGeekContext()
+    const { userTagsShortcut, setUserTagsShortcut, setSidebarMinimize } = useGeekContext()
     const router = useRouter()
     let length = 0
     let keyid = 0
@@ -23,9 +23,12 @@ function PostArticleTagList({ tags }) {
                 let userTagsShortcutList = userTagsShortcut
                 userTagsShortcutList.push(tag)
                 setUserTagsShortcut(userTagsShortcutList)
+                setSidebarMinimize(true)
+                setTimeout(() => {
+                    setSidebarMinimize(false)
+                }, 1);
                 localStorage.setItem('user.tags', userTagsShortcutList)
                 toast.success("Sidebar shortcut created!", { duration: 2000 })
-                sidebarUpdate()
             }else {
                 toast.error("Sidebar shortcut exists!", { duration: 2000 })
             }

@@ -11,7 +11,7 @@ import ExpandMoreOutlinedIcon from '@mui/icons-material/ExpandMoreOutlined';
 import { useGeekContext } from '../context/ShareModalContext';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { useRef } from 'react';
 
 let timeout = null;
 let long_timeout = null;
@@ -62,14 +62,11 @@ async function cancleAllTimeouts() {
     }
 }
 function SideBar() {
-    const [, updateState] = useState();
-    const sidebarUpdate = useCallback(() => updateState({}), []);
-    let { sidebarMinimize, setSidebarMinimize, userTagsShortcut, setSidebarUpdate } = useGeekContext()
-    setSidebarUpdate(sidebarUpdate)
-    useEffect(() => { }, [userTagsShortcut])
+    let { sidebarMinimize, setSidebarMinimize, userTagsShortcut } = useGeekContext()
 
     return (
         <div onScrollCapture={() => { cancleAllTimeouts() }} className={`hide-scrollbar sidebar-icon-section ${sidebarMinimize ? `sidebar-minimized` : ``}`} id="sidebar-dynamic-section">
+            <div className={`sidebar-icon-section-bg transition-all duration-200 ${sidebarMinimize ? `sidebar-minimized` : ``}`}></div>
             <div className="sidebar-icon-container">
                 <div className='sidebar-minimizer rounded-full'>
                     <ExpandMoreOutlinedIcon className='sidebar-icon-svg' onClick={() => { localStorage.setItem('minimized', !sidebarMinimize); setSidebarMinimize(!sidebarMinimize) }} />

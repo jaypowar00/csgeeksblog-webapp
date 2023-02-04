@@ -17,7 +17,7 @@ function ArticlePostDetailPage({ article, profilePhotoUrl }) {
     const postId = router.query.postId
     const [hostUrl, sethostUrl] = useState("https://csgeeksblog.netlify.app")
     const [hostName, sethostName] = useState("csgeeksblog.netlify.app")
-    const { sidebarMinimize, userTagsShortcut, setUserTagsShortcut } = useGeekContext()
+    const { sidebarMinimize, userTagsShortcut, setUserTagsShortcut, setSidebarMinimize } = useGeekContext()
     let timeout = null
 
     useEffect(() => {
@@ -42,6 +42,10 @@ function ArticlePostDetailPage({ article, profilePhotoUrl }) {
                 userTagsShortcutList.push(tag)
                 setUserTagsShortcut(userTagsShortcutList)
                 localStorage.setItem('user.tags', userTagsShortcutList)
+                setSidebarMinimize(true)
+                setTimeout(() => {
+                    setSidebarMinimize(false)
+                }, 1);
                 toast.success("Sidebar shortcut created!", { duration: 2000 })
             } else {
                 toast.error("Sidebar shortcut exists!", { duration: 2000 })

@@ -2,18 +2,15 @@ import { Button, Modal } from "reactstrap";
 import { useGeekContext } from "../context/ShareModalContext";
 import WhatsAppIcon from '@mui/icons-material/WhatsApp';
 import ContentCopyIcon from '@mui/icons-material/ContentCopy';
-import { useRouter } from "next/router";
 import { toast } from "react-hot-toast";
 
 function TagOptionsModal() {
-
-    const { asPath } = useRouter();
 
     const {
         modalTagOptionsOpen, setModalTagOptionsOpen,
         selectedTag, setSelectedTag,
         userTagsShortcut, setUserTagsShortcut,
-        sidebarUpdate
+        setSidebarMinimize,
     } = useGeekContext()
 
     const copyUrl = async () => {
@@ -39,11 +36,14 @@ function TagOptionsModal() {
             userTagsShortcutList.splice(userTagsShortcutList.indexOf(selectedTag), 1)
             localStorage.setItem('user.tags', userTagsShortcutList.join(','))
             setUserTagsShortcut(userTagsShortcutList)
+            setSidebarMinimize(true)
+            setTimeout(() => {
+                setSidebarMinimize(false)
+            }, 1);
         }
         setModalTagOptionsOpen(false)
         setSelectedTag(null)
         toast.success("Sidebar shortcut removed!", { duration: 2000 })
-        sidebarUpdate()
     }
 
     return (
