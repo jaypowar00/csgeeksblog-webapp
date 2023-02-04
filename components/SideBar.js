@@ -86,7 +86,7 @@ function SideBar() {
                 {/* <UserAddedSideIcons tagName={"Science"} /> */}
                 {/* <UserAddedSideIcons tagName={"DBZ"} /> */}
                 {/* <UserAddedSideIcons tagName={"Blockchain"} /> */}
-                <SideBarIcon icon={<AddCircleOutlinedIcon className='sidebar-icon-svg' />} />
+                {/* <SideBarIcon icon={<AddCircleOutlinedIcon className='sidebar-icon-svg' />} /> */}
             </div>
         </div>
     );
