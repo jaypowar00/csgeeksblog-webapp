@@ -8,6 +8,7 @@ import { Toaster } from 'react-hot-toast'
 import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import Head from 'next/head'
+import TagOptionsModal from '@/components/TagOptionsModal'
 try {
   TimeAgo.addDefaultLocale(en)
 } catch (e) {
@@ -20,6 +21,7 @@ export default function App({ Component, pageProps }) {
         <meta name="google-site-verification" content="LsSs0Uu_szcBdSa0kLK21udIohiOBy14mBEdJ0w4T3c" />
       </Head>
       <ShareModal />
+      <TagOptionsModal />
       <div className='flex flex-row'>
         <SideBar />
         <Component {...pageProps} />
