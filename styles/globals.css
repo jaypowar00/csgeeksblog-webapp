@@ -88,6 +88,21 @@
     .sidebar-minimizer .sidebar-icon-svg {
         border-radius: 9999px !important;
     }
+    .home-svg-next {
+        @apply max-[460px]:w-24;
+    }
+    .home-svg-tail {
+        @apply max-[460px]:w-16;
+    }
+    .home-body-section {
+        @apply text-start bg-gray-700 drop-shadow-xl rounded-md max-w-[332px] w-[70%] mx-auto py-4 px-4;
+    }
+    .home-body-section > span {
+        @apply max-[410px]:!-ml-[32px];
+    }
+    .home-container {
+        @apply w-screen h-[100px] text-center absolute translate-x-[-50%] translate-y-[-5%] top-[5%] left-[50%] max-[460px]:!left-[45%];
+    }
 }
 .hide-scrollbar {
     scrollbar-width: none;
