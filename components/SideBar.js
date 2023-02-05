@@ -81,12 +81,6 @@ function SideBar() {
                 <SideBarIcon text='About' url="/about" icon={<InfoOutlinedIcon className='sidebar-icon-svg' />} />
                 <hr className='sidebar-icon-linebreak' />
                 {userTagsShortcut.map(userTag => (<UserAddedSideIcons key={userTag} tagName={userTag} />))}
-                {/* <UserAddedSideIcons tagName={"anime"} /> */}
-                {/* <UserAddedSideIcons tagName={"Technology"} /> */}
-                {/* <UserAddedSideIcons tagName={"Science"} /> */}
-                {/* <UserAddedSideIcons tagName={"DBZ"} /> */}
-                {/* <UserAddedSideIcons tagName={"Blockchain"} /> */}
-                {/* <SideBarIcon icon={<AddCircleOutlinedIcon className='sidebar-icon-svg' />} /> */}
             </div>
         </div>
     );
@@ -117,9 +111,9 @@ function SideBarIcon({ icon, text = 'tooltip', modalShareOpener = false, home = 
 function UserAddedSideIcons({ tagName }) {
     const { setSelectedTag, setModalTagOptionsOpen } = useGeekContext()
     const router = useRouter()
-    const isLongPress = useRef()
     const isSingleClick = useRef()
     const tagname = `${tagName}`;
+    const highlight = router.asPath === `/tag/${tagName}/posts`
     const handleOnClick = (e) => {
         e.preventDefault()
         clearTimeout(isSingleClick.current)
@@ -139,7 +133,7 @@ function UserAddedSideIcons({ tagName }) {
             onClick={handleOnClick}
             onContextMenu={e => { e.preventDefault(); handleTagOptions() }}>
 
-            <div className='user-sidebar-icon sidebar-icon group'
+            <div className={`user-sidebar-icon sidebar-icon group ${highlight ? `bg-green-600 text-white` : ``}`}
                 onScrollCapture={() => { cancleAllTimeouts() }}
                 onMouseEnter={() => { hoveredOnTag(true) }} onMouseLeave={() => { hoveredOnTag(false) }}
                 onTouchStart={() => { mobileLongPressDetect(true) }} onTouchEnd={() => mobileLongPressDetect(false)}>
