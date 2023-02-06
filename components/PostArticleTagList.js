@@ -8,7 +8,6 @@ function PostArticleTagList({ tags }) {
     const { userTagsShortcut, setUserTagsShortcut, setSidebarMinimize } = useGeekContext()
     const router = useRouter()
     let length = 0
-    let keyid = 0
     const [maxLength, setMaxLength] = useState(-1)
     let widthWindow = null
     let timeout = null
@@ -16,8 +15,12 @@ function PostArticleTagList({ tags }) {
     const handleClick = (e, tag) => {
         e.preventDefault()
         clearTimeout(timeout)
-        if (e.detail === 1)
-            timeout = setTimeout(() => { router.push(`/tag/${tag}/posts`) }, 200)
+        if (e.detail === 1){
+            timeout = setTimeout(() => {
+                router.push(`/tag/${tag}/posts`);
+                toast.loading('loading tag data', {id: `${tag}_toast`})
+            }, 200)
+        }
         else if (e.detail === 2) {
             if (userTagsShortcut.indexOf(tag) === -1) {
                 let userTagsShortcutList = userTagsShortcut
@@ -69,9 +72,8 @@ function PostArticleTagList({ tags }) {
                 tags.map(tag => {
                     if (tag.length + length + 4 < maxLength) {
                         length += tag.length + 4
-                        keyid += 1
                         return (
-                            <span key={keyid} className="py-[3px] px-2 mr-2 bg-gray-700 rounded-2xl hover:cursor-pointer hover:bg-gray-900">
+                            <span key={tag} className="py-[3px] px-2 mr-2 bg-gray-700 rounded-2xl hover:cursor-pointer hover:bg-gray-900">
                                 <Link
                                     className="!text-green-600 hover:!no-underline"
                                     href={`/tag/${tag}/posts`}
