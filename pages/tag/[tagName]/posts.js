@@ -41,9 +41,10 @@ function ArticlesByTagsPage({ p_articles = [], tagName }) {
     }
 
     const filterData = async () => {
+        let tagName = router.asPath.split('/').reverse()[1]
         setFiltering(true)
         setTimeout(() => { setToggleFilterMenu(false); afterHideFilterMenu() }, 550)
-        let req = axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/posts?orderby=${orderProperty}&order=${orderMethod}`, { timeout: 60000 })
+        let req = axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/posts?orderby=${orderProperty}&order=${orderMethod}&tag=${tagName}`, { timeout: 60000 })
             .then(res => {
                 if (res.data.articles) setArticles(res.data.articles)
                 setFiltering(false)
