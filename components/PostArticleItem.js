@@ -42,15 +42,15 @@ function PostArticleItem({
                 <span className="text-xs select-none" title={formattedDate}>{timeAgo.format(new Date(created))}</span>
             </div>
             <h2 className="mb-2 text-2xl font-bold tracking-tight text-white">
-                <Link className="article-title" href={`/posts/${id}`}>{title}</Link>
+                <Link className="article-title select-text" href={`/posts/${id}`}>{title}</Link>
             </h2>
-            <p className="mb-5 font-light text-gray-400">
+            <p className="mb-5 font-light text-gray-400 select-text">
                 {`${description.substring(0, 150)}${(description.length > 150) ? '...' : ''}`}
             </p>
             <div className="flex justify-between items-center">
                 <div className="flex items-center space-x-4">
                     <Image className="select-none w-7 h-7 rounded-full" width={128} height={128} quality={100} src={profilePhotoUrl} alt={`${author}'s Profile Picture`} />
-                    <span className="font-medium text-white">
+                    <span className="font-medium text-white select-text">
                         {author}
                     </span>
                 </div>
