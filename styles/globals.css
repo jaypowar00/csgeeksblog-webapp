@@ -5,7 +5,7 @@
 @layer components {
     .sidebar-icon-container {
         @apply absolute top-0 left-0 h-fit
-                w-16 m-0 flex flex-col text-white shadow-lg
+                w-16 m-0 flex flex-col text-white
                 md:w-[4.7rem] xl:w-[5.3rem] 2xl:w-24 pb-28;
     }
     .sidebar-icon-section-bg {
