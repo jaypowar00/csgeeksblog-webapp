@@ -25,7 +25,7 @@ function ArticlesByTagsPage({ p_articles = [], tagName }) {
             sethostUrl(window.location.origin)
         if (window.location.host !== hostName)
             sethostName(window.location.host)
-        if (p_articles != oldPropArticles){
+        if (JSON.stringify(p_articles) !== JSON.stringify(oldPropArticles)) {
             setOldPropArticles(p_articles)
             setArticles(p_articles)
             toast.success('tag data loaded', { id: `${router.asPath.split('/').reverse()[1]}_toast`, duration: 3000 })
