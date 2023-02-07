@@ -50,7 +50,7 @@ function Home() {
 
       <div className={`main-container ${sidebarMinimize ? 'main-container-minimized' : ''}`}>
         <div className={`posts-sections ${sidebarMinimize ? 'sidebar-minimized-posts-sections' : ''}`}>
-          <div className="home-container">
+          <div className={`home-container ${sidebarMinimize ? `home-container-minimized`:``}`}>
             <h1 className="mx-auto w-fit text-[#C2F9BB] font-bold text-2xl">
               CSGeeks Blog V2.0
             </h1>

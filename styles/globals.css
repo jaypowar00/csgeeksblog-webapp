@@ -101,7 +101,13 @@
         @apply max-[410px]:!-ml-[32px];
     }
     .home-container {
-        @apply w-screen h-[100px] text-center absolute translate-x-[-50%] translate-y-[-5%] top-[5%] left-[50%] max-[460px]:!left-[45%];
+        @apply w-screen h-[100px] text-center absolute translate-x-[-50%] translate-y-[-5%] top-[5%] left-[50%] max-[460px]:!left-[47%];
+    }
+    .home-container-minimized {
+        @apply max-[460px]:!left-[50%];
+    }
+    .home-container-minimized .home-body-section {
+        @apply max-[460px]:!w-full;
     }
 }
 .hide-scrollbar {
