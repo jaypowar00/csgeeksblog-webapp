@@ -3,9 +3,10 @@ import { useGeekContext } from "@/context/ShareModalContext";
 import axios from "axios";
 import Head from "next/head";
 import Link from "next/link";
-import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import DragonAteAllArticlesSVG from '@/public/dragon_ate_all_articles.svg'
+import Image from "next/image";
 
 function Posts({ p_articles }) {
     const [hostUrl, sethostUrl] = useState("https://csgeeksblog.netlify.app")
@@ -15,7 +16,7 @@ function Posts({ p_articles }) {
     const [orderProperty, setOrderProperty] = useState('created')
     const [orderMethod, setOrderMethod] = useState('desc')
     const [filtering, setFiltering] = useState(false)
-    const [articles, setArticles] = useState(p_articles?p_articles:[])
+    const [articles, setArticles] = useState(p_articles ? p_articles : [])
     const { sidebarMinimize } = useGeekContext()
 
     const afterHideFilterMenu = async () => {
@@ -30,15 +31,15 @@ function Posts({ p_articles }) {
             sethostName(window.location.host)
     }, [])
 
-    const filterData = async() => {
+    const filterData = async () => {
         setFiltering(true)
-        setTimeout(()=>{setToggleFilterMenu(false);afterHideFilterMenu()},550)
+        setTimeout(() => { setToggleFilterMenu(false); afterHideFilterMenu() }, 550)
         let req = axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/posts?orderby=${orderProperty}&order=${orderMethod}`, { timeout: 60000 })
-        .then(res => {
-            if(res.data.articles) setArticles(res.data.articles)
-            setFiltering(false)
-        }).catch(err=> {alert('something went wrong while filtering!')})
-        toast.promise(req, {loading: 'getting articles', success: 'success', error: 'something went wrong'}, {duration: 1500})
+            .then(res => {
+                if (res.data.articles) setArticles(res.data.articles)
+                setFiltering(false)
+            }).catch(err => { alert('something went wrong while filtering!') })
+        toast.promise(req, { loading: 'getting articles', success: 'success', error: 'something went wrong' }, { duration: 1500 })
     }
 
     return (
@@ -70,11 +71,11 @@ function Posts({ p_articles }) {
             <div className={`main-container ${sidebarMinimize ? 'main-container-minimized' : ''}`}>
                 <section className={`posts-sections ${sidebarMinimize ? 'sidebar-minimized-posts-sections' : ''}`}>
                     <div className="py-8 px-4 mx-auto lg:py-16 lg:px-6 select-none">
-                        <span className="flex justify-start max-sm:justify-end -mt-5 min-[1024px]:-mt-8 mb-3">
+                        <span className={`${articles.length > 0 ? `` : `hidden`} flex justify-start max-sm:justify-end -mt-5 min-[1024px]:-mt-8 mb-3`}>
                             <span onClick={() => { (!toggleFilterMenu) ? setToggledFilterMenuClasses(`h-0 !w-0 overflow-hidden opacity-0`) : null; setTimeout(() => setToggleFilterMenu(!toggleFilterMenu), 100); }} className={`group active:ring-1 active:ring-violet-300 active:bg-violet-700 w-fit ${toggleFilterMenu ? 'ring-1 ring-violet-300 bg-violet-700' : 'bg-gray-700'} py-[4px] text-[16px] hover:font-medium px-3 rounded-md cursor-pointer hover:text-[#e3ffdf]`}>
                                 Filter
                             </span>
-                            <div className={`${toggleFilterMenu ? `h-fit` : `${toggledFilterMenuClasses} ${afterHideFilterMenu()}`} px-3 pt-6 pb-20 shadow-2xl ease-linear rounded-md absolute max-[1023px]:-mt-5  bg-gray-700 w-[300px] left-[85px] z-[1] max-sm:translate-x-[-50%] max-sm:left-[50%] ${sidebarMinimize?`max-sm:w-[93%]`:`max-sm:w-[85%] max-sm:-ml-3`} max-sm:top-16 transition-all duration-100`}>
+                            <div className={`${toggleFilterMenu ? `h-fit` : `${toggledFilterMenuClasses} ${afterHideFilterMenu()}`} px-3 pt-6 pb-20 shadow-2xl ease-linear rounded-md absolute max-[1023px]:-mt-5  bg-gray-700 w-[300px] left-[85px] z-[1] max-sm:translate-x-[-50%] max-sm:left-[50%] ${sidebarMinimize ? `max-sm:w-[93%]` : `max-sm:w-[85%] max-sm:-ml-3`} max-sm:top-16 transition-all duration-100`}>
                                 <label for="property" className="block mb-2 text-base font-medium text-gray-900 dark:text-white">Order</label>
                                 <select value={orderProperty} onChange={e => setOrderProperty(e.target.value)} id="property" className="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 cursor-pointer">
                                     <option value="Author">Author</option>
@@ -100,14 +101,26 @@ function Posts({ p_articles }) {
                                 </button>
                             </div>
                         </span>
-                        <div className="grid gap-8 pb-32 lg:grid-cols-2">
-                            {articles.map((article) => (
-                                <PostArticleItem key={article._id}
-                                    id={article._id} author={article.author} title={article.title}
-                                    description={article.description} created={article.created}
-                                    tags={article.tags} thumbnail={article.thumbnail} />
-                            ))}
-                        </div>
+                        {
+                            articles.length > 0 ?
+                                <div className="grid gap-8 pb-32 lg:grid-cols-2">
+                                    {articles.map((article) => (
+                                        <PostArticleItem key={article._id}
+                                            id={article._id} author={article.author} title={article.title}
+                                            description={article.description} created={article.created}
+                                            tags={article.tags} thumbnail={article.thumbnail} />
+                                    ))}
+                                </div>
+                                :
+                                <div className="justify-center w-full h-[90vh]">
+                                    <span className="bg-gray-700 w-fit mx-auto h-full flex flex-col-reverse text-6xl">
+                                        <span className={`absolute font-mono font-semibold w-full text-center left-[50%] top-[30%] ${sidebarMinimize?``:`pr-7`} transition-all duration-500 leading-3 translate-x-[-50%] translate-y-[-30%]`}>
+                                            <Image className="home-svg-next block mx-auto w-[30%] min-w-[300px] max-[500px]:min-w-[50%] mb-2" src={DragonAteAllArticlesSVG} alt='someone ate all articles' width={200} height={0} />
+                                            <span className="max-[1444px]:text-[50px] max-[1270px]:text-[40px] max-[1000px]:text-[30px] max-[1000px]:-ml-5 max-[777px]:text-[24px] max-[777px]:ml-0 max-[500px]:text-[16px] max-[500px]:-ml-3 max-[500px]:px-5 whitespace-pre-wrap">Looks like someone ate all the articles!</span>
+                                        </span>
+                                    </span>
+                                </div>
+                        }
                     </div>
                 </section>
             </div>

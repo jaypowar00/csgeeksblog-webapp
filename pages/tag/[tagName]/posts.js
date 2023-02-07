@@ -5,6 +5,8 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
+import DragonAteAllArticlesSVG from '@/public/dragon_ate_all_articles.svg'
+import Image from "next/image";
 
 function ArticlesByTagsPage({ p_articles = [], tagName }) {
     const [hostUrl, sethostUrl] = useState("https://csgeeksblog.netlify.app")
@@ -26,7 +28,7 @@ function ArticlesByTagsPage({ p_articles = [], tagName }) {
         if (p_articles != oldPropArticles){
             setOldPropArticles(p_articles)
             setArticles(p_articles)
-            toast.success('tag data loaded', {id: `${router.asPath.split('/').reverse()[1]}_toast`, duration: 3000})
+            toast.success('tag data loaded', { id: `${router.asPath.split('/').reverse()[1]}_toast`, duration: 3000 })
         }
     }, [p_articles])
 
@@ -81,7 +83,7 @@ function ArticlesByTagsPage({ p_articles = [], tagName }) {
             <div className={`main-container ${sidebarMinimize ? 'main-container-minimized' : ''}`}>
                 <section className={`posts-sections ${sidebarMinimize ? 'sidebar-minimized-posts-sections' : ''}`}>
                     <div className="py-8 px-4 mx-auto lg:py-16 lg:px-6">
-                        <span className="flex justify-start max-sm:justify-end -mt-5 min-[1024px]:-mt-8 mb-3">
+                        <span className={`${articles.length > 0 ? `` : `hidden`} flex justify-start max-sm:justify-end -mt-5 min-[1024px]:-mt-8 mb-3`}>
                             <span onClick={() => { (!toggleFilterMenu) ? setToggledFilterMenuClasses(`h-0 !w-0 overflow-hidden opacity-0`) : null; setTimeout(() => setToggleFilterMenu(!toggleFilterMenu), 100); }} className={`group active:ring-1 active:ring-violet-300 active:bg-violet-700 w-fit ${toggleFilterMenu ? 'ring-1 ring-violet-300 bg-violet-700' : 'bg-gray-700'} py-[4px] text-[16px] hover:font-medium px-3 rounded-md cursor-pointer hover:text-[#e3ffdf]`}>
                                 Filter
                             </span>
@@ -111,14 +113,26 @@ function ArticlesByTagsPage({ p_articles = [], tagName }) {
                                 </button>
                             </div>
                         </span>
-                        <div className="grid gap-8 pb-32 lg:grid-cols-2">
-                            {articles.map((article, index) => (
-                                <PostArticleItem key={article._id}
-                                    id={article._id} author={article.author} title={article.title}
-                                    description={article.description} created={article.created}
-                                    tags={article.tags} thumbnail={article.thumbnail} />
-                            ))}
-                        </div>
+                        {
+                            articles.length > 0 ?
+                                <div className="grid gap-8 pb-32 lg:grid-cols-2">
+                                    {articles.map((article) => (
+                                        <PostArticleItem key={article._id}
+                                            id={article._id} author={article.author} title={article.title}
+                                            description={article.description} created={article.created}
+                                            tags={article.tags} thumbnail={article.thumbnail} />
+                                    ))}
+                                </div>
+                                :
+                                <div className="justify-center w-full h-[90vh]">
+                                    <span className="bg-gray-700 w-fit mx-auto h-full flex flex-col-reverse text-6xl">
+                                        <span className={`absolute font-mono font-semibold w-full text-center left-[50%] top-[30%] ${sidebarMinimize ? `` : `pr-7`} transition-all duration-500 leading-3 translate-x-[-50%] translate-y-[-30%]`}>
+                                            <Image className="home-svg-next block mx-auto w-[30%] min-w-[300px] max-[500px]:min-w-[50%] mb-2" src={DragonAteAllArticlesSVG} alt='someone ate all articles' width={200} height={0} />
+                                            <span className="max-[1444px]:text-[50px] max-[1270px]:text-[40px] max-[1000px]:text-[30px] max-[1000px]:-ml-5 max-[777px]:text-[24px] max-[777px]:ml-0 max-[500px]:text-[16px] max-[500px]:-ml-3 max-[500px]:px-5 whitespace-pre-wrap">Looks like someone ate all the articles!</span>
+                                        </span>
+                                    </span>
+                                </div>
+                        }
                     </div>
                 </section>
             </div>
@@ -147,7 +161,7 @@ export const getStaticProps = async (ctx) => {
     let p_articles = []
     await axios.get(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/posts?orderby=created&order=desc&tag=${tagName}`)
         .then(res => {
-            if (res.data.articles) p_articles = res.data.articles
+            if (res.data.success) p_articles = res.data.articles
         }).catch(err => console.log(err))
 
     return {
