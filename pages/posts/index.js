@@ -84,7 +84,7 @@ function Posts({ p_articles }) {
                                 </select>
                                 <label for="method" className="block mb-2 mt-4 text-base font-medium text-gray-900 dark:text-white">By</label>
                                 <select value={orderMethod} onChange={e => setOrderMethod(e.target.value)} id="method" className="block w-full px-4 py-3 text-base text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 cursor-pointer">
-                                    <option value="desc" selected>{orderProperty === 'created' ? `New - Old` : `Z - A`}</option>
+                                    <option value="desc">{orderProperty === 'created' ? `New - Old` : `Z - A`}</option>
                                     <option value="asc">{orderProperty === 'created' ? `Old - New` : `A - Z`}</option>
                                 </select>
                                 <button onClick={filterData} type="button" className="absolute bottom-4 left-[50%] translate-x-[-50%] text-white focus:ring-1 focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-green-600 hover:bg-green-700 focus:ring-green-400 inline-flex items-center">
