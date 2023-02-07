@@ -73,10 +73,10 @@ function SideBar() {
                 </div>
                 <SideBarIcon text='Home' url="/" home={true} icon={<HomeIcon className='sidebar-icon-svg' />} />
                 <SideBarIcon text='Posts' url="/posts" icon={<GridViewOutlinedIcon className='sidebar-icon-svg' />} />
-                <SideBarIcon text='Search' url="/posts/search" icon={<SearchOutlinedIcon className='sidebar-icon-svg' />} />
+                <SideBarIcon text='Search' iconRole='searchBar' icon={<SearchOutlinedIcon className='sidebar-icon-svg' />} />
                 <SideBarIcon text='Authors' url="/posts/authors" icon={<StyleOutlinedIcon className='sidebar-icon-svg' />} />
                 <SideBarIcon text='' icon={<AccountBoxOutlinedIcon className='sidebar-icon-svg' />} />
-                <SideBarIcon text='Share' modalShareOpener={true} icon={<LaunchOutlinedIcon className='sidebar-icon-svg' />} />
+                <SideBarIcon text='Share' iconRole="shareModal" icon={<LaunchOutlinedIcon className='sidebar-icon-svg' />} />
                 <SideBarIcon text='Privacy Policy' url="/privacypolicy" icon={<PolicyOutlinedIcon className='sidebar-icon-svg' />} />
                 <SideBarIcon text='About' url="/about" icon={<InfoOutlinedIcon className='sidebar-icon-svg' />} />
                 <hr className='sidebar-icon-linebreak' />
@@ -86,8 +86,8 @@ function SideBar() {
     );
 }
 
-function SideBarIcon({ icon, text = 'tooltip', modalShareOpener = false, home = false, url = "#" }) {
-    let { setModalShareOpen } = useGeekContext()
+function SideBarIcon({ icon, text = 'tooltip', iconRole = "", home = false, url = "#" }) {
+    let { setModalShareOpen, setSearchBarToggle } = useGeekContext()
     const router = useRouter()
     const highlight = (url) === ((router.asPath.length <= 1) ? '/'
         : (router.asPath.replace('#', '').endsWith('/') ?
@@ -95,7 +95,7 @@ function SideBarIcon({ icon, text = 'tooltip', modalShareOpener = false, home = 
             : router.asPath.replace('#', '')))
     return (
         <Link href={url !== "#" ? url : router.asPath}>
-            <div className={`sidebar-icon group ${highlight ? `bg-green-600 text-white` : ``}`} onClick={() => { (modalShareOpener) ? setModalShareOpen(true) : null }}
+            <div className={`sidebar-icon group ${highlight ? `bg-green-600 text-white` : ``}`} onClick={() => { (iconRole === "shareModal") ? setModalShareOpen(true) : (iconRole === "searchBar") ? setSearchBarToggle(true) : null }}
                 onScrollCapture={() => { cancleAllTimeouts() }}
                 onMouseEnter={() => { hoveredOnTag(true) }} onMouseLeave={() => { hoveredOnTag(false) }}
                 onTouchStart={() => { mobileLongPressDetect(true) }} onTouchEnd={() => mobileLongPressDetect(false)}>

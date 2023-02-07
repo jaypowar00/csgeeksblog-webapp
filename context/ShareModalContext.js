@@ -8,6 +8,8 @@ export const ShareContextWrapper = ({ children }) => {
     const [sidebarMinimize, setSidebarMinimize] = useState(false)
     const [selectedTag, setSelectedTag] = useState(null)
     const [userTagsShortcut, setUserTagsShortcut] = useState([])
+    const [searchBarToggle, setSearchBarToggle] = useState(false)
+
     useEffect(() => {
         if (localStorage.getItem('minimized'))
             setSidebarMinimize(localStorage.getItem('minimized') === 'true')
@@ -22,6 +24,7 @@ export const ShareContextWrapper = ({ children }) => {
             selectedTag, setSelectedTag,
             userTagsShortcut, setUserTagsShortcut,
             modalTagOptionsOpen, setModalTagOptionsOpen,
+            searchBarToggle, setSearchBarToggle,
         }}>
             {children}
         </ShareModalContext.Provider>

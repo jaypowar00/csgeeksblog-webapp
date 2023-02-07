@@ -9,6 +9,7 @@ import TimeAgo from 'javascript-time-ago'
 import en from 'javascript-time-ago/locale/en'
 import Head from 'next/head'
 import TagOptionsModal from '@/components/TagOptionsModal'
+import FullSearchBar from '@/components/SearchBar'
 try {
   TimeAgo.addDefaultLocale(en)
 } catch (e) {
@@ -27,6 +28,7 @@ export default function App({ Component, pageProps }) {
         <Component {...pageProps} />
       </div>
       <Toaster position='bottom-right' toastOptions={{ duration: 2000 }} reverseOrder={false} />
+      <FullSearchBar />
     </ShareContextWrapper>
   )
 }
