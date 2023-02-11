@@ -22,10 +22,9 @@ function AboutPeopleListItem({ person, p_no, childRefs, setChildRefs }) {
                     <Image
                         draggable={false}
                         className="max-w-[400px] w-full p-1 rounded-sm inline-block"
-                        width={400} height={400} quality={100}
+                        width={200} height={200} quality={70}
                         src={person.image}
-                        alt={`profile picture`}
-                        loading='lazy' />
+                        alt={`profile picture`}/>
                 </div>
                 <div className={`flip-card-back ${focused ? '' : 'opacity-60'}`}>
                     <span className="block">{person.description}</span>
