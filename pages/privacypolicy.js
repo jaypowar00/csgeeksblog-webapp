@@ -3,7 +3,7 @@ import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 
-function privacypolicy() {
+function PrivacyPolicy() {
     const [hostUrl, sethostUrl] = useState("https://csgeeksblog.netlify.app")
     const [hostName, sethostName] = useState("csgeeksblog.netlify.app")
     const { sidebarMinimize } = useGeekContext()
@@ -62,4 +62,4 @@ function privacypolicy() {
     );
 }
 
-export default privacypolicy;
+export default PrivacyPolicy;
