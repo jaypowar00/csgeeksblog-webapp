@@ -21,10 +21,11 @@ function AboutPeopleListItem({ person, p_no, childRefs, setChildRefs }) {
                 <div className={`flip-card-front ${focused ? '' : 'opacity-30'} transition-all duration-1000`}>
                     <Image
                         draggable={false}
-                        className="max-w-[400px] w-full p-1 rounded-sm inline-block"
-                        width={200} height={200} quality={70}
+                        className="max-w-[400px] w-full h-full p-1 rounded-sm inline-block object-cover"
+                        width={400} height={400} quality={70}
                         src={person.image}
-                        alt={`profile picture`}/>
+                        alt={`profile picture`}
+                        />
                 </div>
                 <div className={`flip-card-back ${focused ? '' : 'opacity-60'}`}>
                     <span className="block">{person.description}</span>
