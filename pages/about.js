@@ -13,24 +13,246 @@ import AboutPeopleListItem from "@/components/AboutPeopleListItem";
 const peopleList = [
     {
         name: "Jay Powar",
+        fullname: "Jay Avinash Powar",
         image: JayPhoto,
-        description: "RedRanger"
+        description: "RedRanger",
+        info: {
+            bio: "Skilled at full stack web development. Worked with android development & game development as well!",
+            links: {
+                Github: "https://github.com/jaypowar00",
+                Twitter: "https://twitter.com/Red_Ranger00",
+                LinkedIn: "https://linkedin.com/in/jaypowar00",
+                Website: "https://jaypowar00.github.io",
+                Email: "jaypowar00@gmail.com"
+            }
+        },
+        experiences: [
+            {
+                name: "Krishi Network",
+                companyWebsite: "https://www.krishinetwork.com/",
+                role: "Backend Developer Intern",
+                completed: "July 2022",
+                info: [
+                    "Krishi Network is an app which encourages farmers to use smartphones for the productive purpose",
+                    "Daily SCRUM meets with manager to get receive task, I was give few modules to work on flask backend",
+                    "Developed functionality to get similar questions API based on existing question text",
+                    "Functionality to highlight unseen answered user question on top of user feed until user has seen the answer using user data from redis cache",
+                    "Technologies: Flask MVC, Redis, Postgresql"
+                ]
+            },
+        ],
+        projects: [
+            {
+                name: "Charity Fund Tracking System",
+                links: [
+                    {
+                        backend: "https://github.com/jaypowar00/fund-tracking-backend"
+                    }, {
+                        frontend: "https://github.com/jaypowar00/charity-fund-tracker-webapp"
+                    }
+                ],
+                info: [
+                    "Aim to create a platform to make donation system transparent using blockchain technology",
+                    "Used solidity to develop a smart contract for maintaining user donations and charity expenses",
+                    "Deployed contract with truffle on Infura Goerli Test-net and integrated smart contract with web3",
+                    "Firebase cloud storage integration with backend for handling user documents.",
+                    "Implemented jwt based authentication",
+                    "Made use of typeorm to link app with postgresql database",
+                    "Technologies: Express, React, PostgreSQL, Firebase Cloud Storage, Solidity, Truffle"
+                ]
+            },
+            {
+                name: "Helping Hearts",
+                links: [
+                    {
+                        backend: "https://github.com/jaypowar00/helping-hearts"
+                    }, {
+                        frontend: "https://github.com/jaypowar00/helping-hearts-web"
+                    }
+                ],
+                info: [
+                    "A platform to bridge the gap between hospitals, patients, doctors, nurses and other coworkers",
+                    "Used jwt for authenticating user requests",
+                    "Added custom user model with different use types for hospital, patient, doctor, nurse, coworker",
+                    "Added pagination system for list of hospitals",
+                    "Added advanced search queries for filtering data",
+                    "Technologies: Python, Django, React, Postgresql"
+                ]
+            },
+            {
+                name: "CSGeeks Blog",
+                links: [
+                    {
+                        backend: "https://github.com/jaypowar00/csgeeksblog-api"
+                    }, {
+                        frontend: "https://github.com/jaypowar00/csgeeksblog-webapp"
+                    }
+                ],
+                info: [
+                    "Created a dynamic blog platform, backend & frontend, with markdown support for blog article body",
+                    "Used SQLAlchemy & psycopg2 to interact with postgresql database",
+                    "Added advanced querying for filtering articles",
+                    "Used jwt authentication along with werkzeug.security library to hash the passwords & verified them at login",
+                    "Technologies: Python, Flask, NextJS, Postgresql, Tailwind"
+                ]
+            },
+            {
+                name: "TSI Teacher Student Interface",
+                links: [
+                    {
+                        github: "https://github.com/jaypowar00/project-TSI"
+                    },
+                ],
+                info: [
+                    "Goal to create a software to let students & teachers connect together during practical session using LAN teacher solving student’s doubts from remote location; If needed, both can share files with each other",
+                    "Implemented multi-threaded functionality with sockets",
+                    "folder/file system generation for file transfer between student-to-teacher",
+                    "Technologies: C, POSIX Thread, Socket"
+                ]
+            },
+        ]
     }, {
         name: "Avadhut Tanugade",
+        fullname: "Avadhut Bhausaheb Tanugade",
         image: AvadhutPhoto,
-        description: "Mr.WhoKnows"
+        description: "Mr.WhoKnows",
+        info: {
+            bio: "A learner with a great passion in software development. I also love everything related to computers, free & open-source software, and technology.",
+            links: {
+                Github: "https://github.com/mrwhoknows55",
+                Twitter: "https://twitter.com/mr_whoknows55",
+                LinkedIn: "https://linkedin.com/in/mrwhoknows",
+                Dev: "https://dev.to/mr_whoknows",
+                Website: "https://mrwhoknows.com",
+                Email: "avdhutt2@gmail.com"
+            }
+        },
+        experiences: [
+            {
+                name: "rivi",
+                companyWebsite: "https://rivi.co",
+                role: "Software Development Engineer",
+                completed: "present",
+                info: [
+                    "Notable work includes physical activity/sports tracking & gamification module for AllForSports app for Decathlon",
+                    "Working on flight booking new flow in Rivi product",
+                    "Technologies: WorkManager, Android Services, Notifications, Dagger, Room, Coroutines, Google Maps SDK, Activity Recognition, MVVM Architecture",
+                ]
+            },
+            {
+                name: "SenSen Networks",
+                companyWebsite: "https://sensen.ai",
+                role: "Android Development Intern",
+                completed: "Feb 2022",
+                info: [
+                    "Integrated new login approach to remove dependency on other app",
+                    "Optimized various scrolling and UI issues",
+                    "Technologies: Android Services, Java, SQLite, Handler, Broadcast Receiver",
+                ]
+            },
+            {
+                name: "SorevU",
+                companyWebsite: "https://www.sorevu.com",
+                role: "Android Development Intern",
+                completed: "June 2021",
+                info: [
+                    "Worked on smart Product recommendations app based on user requirements. Mainly using chatting mechanism.",
+                    "Technologies: Coroutines, Firebase Push Notifications, Crashlytics, Deeplinks, MVVM Architecture, Web Sockets, OkHttp3, Retrofit",
+                ]
+            },
+            {
+                name: "Gamepod",
+                companyWebsite: "https://find-and-update.company-information.service.gov.uk/company/11505938",
+                role: "Android Development Intern",
+                completed: "July 2020",
+                info: [
+                    "Responsible for translating Zeplin design into native Android code",
+                    "Technologies: Fragments, Recycler View, ViewPager2, MVVM Architecture, Retrofit and third party libraries",
+                ]
+            },
+        ],
+        projects: [
+            {
+                name: "Blog App",
+                links: [
+                    {
+                        github: "https://github.com/mrwhoknows55/csgeeks-blog-app"
+                    }
+                ],
+                info: [
+                    "Shows different blog articles from a HTTP API.",
+                    "Authors can login and can create, update or delete articles.",
+                    "Seemless navigation between the website and app (deeplinks)",
+                    "Used Libraries: Coroutines, Glide, GSON, Navigation Component, MVVM Architecture, Material design"
+                ]
+            },
+            {
+                name: "Wall Stack",
+                links: [
+                    {
+                        github: "https://github.com/mrwhoknows55/Wall-Stack"
+                    }
+                ],
+                info: [
+                    "Wallpaper app for android",
+                    "Created with help of Wallheaven's API",
+                    "used Libraries & tools: Kotlin, Retrofit, Jetpack components"
+                ]
+            },
+            {
+                name: "Workout App",
+                links: [
+                    {
+                        github: "https://github.com/mrwhoknows55/Workout-Helper"
+                    }
+                ],
+                info: [
+                    "An app that selects and shows random exercises",
+                    "It shows a timer with a rest break on each exercise",
+                    "It also plays music until timer completes",
+                ]
+            },
+        ]
     }, {
         name: "Ajay Powar",
+        fullname: "Ajay Avinash Powar",
         image: AjayPhoto,
-        description: "AeyJey"
+        description: "AeyJey",
+        info: {
+            bio: "Learning -> Adapting -> Improvising",
+            links: {
+                Github: "https://github.com/aeyjeyz",
+                LinkedIn: "https://linkedin.com/in/aeyjeyz",
+                Email: "powarajay2000@gmail.com"
+            }
+        },
+        experiences: [],
+        projects: []
     }, {
         name: "Vinay Shinde",
+        fullname: "Vinay Anilkumar Shinde",
         image: VinayPhoto,
-        description: "Vin Diesel"
+        description: "Photographer",
+        info: {
+            bio: "A photographer.",
+            links: {
+                LinkedIn: "https://www.linkedin.com/in/vinay-shinde-97aa36193/",
+                Email: "vinay007shinde@gmail.com"
+            }
+        },
+        experiences: [],
+        projects: []
     }, {
         name: "Sreyash Gulavani",
+        fullname: "Sreyash Gulavani",
         image: SreyashPhoto,
-        description: "Traveller"
+        description: "Traveller",
+        info: {
+            bio: "A traveller.",
+            links: {}
+        },
+        experiences: [],
+        projects: []
     },
 ]
 
@@ -61,9 +283,7 @@ function AboutPage() {
                     doneAnimate.set(key, true)
                     setFocused(true)
                     setInAnimate(true)
-                    setTimeout(() => {
-                        setInAnimate(false)
-                    }, 500);
+                    setTimeout(() => { setInAnimate(false) }, 500);
                 }
             }
             // focus check

@@ -58,7 +58,7 @@ function FullSearchBar() {
 
     return (
         <div className={`${searchBarToggle ? `` : `hidden`}`} onKeyUp={checkKeyPress}>
-            <div className="absolute w-screen h-screen z-10 top-0 left-0 bg-black opacity-70" onClick={() => { setSearchBarToggle(false) }}>
+            <div className="absolute w-screen h-screen z-20 top-0 left-0 bg-black opacity-70" onClick={() => { setSearchBarToggle(false) }}>
             </div>
             <div className="absolute z-20 w-full top-[24px] max-w-[700px] left-[50%] translate-x-[-50%] px-8">
                 <form className="flex items-center" onSubmit={e => { e.preventDefault(); }}>
