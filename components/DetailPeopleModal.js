@@ -140,7 +140,7 @@ function DetailPeopleModal() {
                                         {
                                             modal_peopleInfo.links && (Object.keys(modal_peopleInfo.links).length > 0) &&
                                             Object.keys(modal_peopleInfo.links).map((key, index) => {
-                                                return (<li key={index}><Link href={key === "Email"?`mailto:${modal_peopleInfo.links[key]}`:modal_peopleInfo.links[key]} target={"_blank"}>{key}</Link></li>)
+                                                return (<li key={index}><Link className="profile-link-item" href={key === "Email"?`mailto:${modal_peopleInfo.links[key]}`:modal_peopleInfo.links[key]} target={"_blank"}>{key}</Link></li>)
                                             })
                                         }
                                         {/* <li><Link href="">Github</Link></li>

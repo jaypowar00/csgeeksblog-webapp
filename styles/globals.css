@@ -218,7 +218,7 @@
     .opacity-anim {
         animation: anim_opacity 1s ease-in-out infinite 4s alternate;
     }
-    li > a{
+    li > .profile-link-item{
         @apply underline !text-green-200;
     }
     .image-flare::before{
