@@ -370,7 +370,7 @@ function AboutPage() {
                                     <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Auth</h2>
                                     <ul className="text-gray-500 dark:text-gray-400">
                                         <li className="mb-4">
-                                            <Link href="#" className="hover:underline">Admin</Link>
+                                            <Link href="/admin" className="hover:underline">Admin</Link>
                                         </li>
                                     </ul>
                                 </div>
