@@ -243,13 +243,15 @@ const peopleList = [
         experiences: [],
         projects: []
     }, {
-        name: "Sreyash Gulavani",
-        fullname: "Sreyash Gulavani",
+        name: "Shreyas Gulavani",
+        fullname: "Shreyas Shailendra Gulavani",
         image: SreyashPhoto,
         description: "Traveller",
         info: {
-            bio: "A traveller.",
-            links: {}
+            bio: "A normal guy doing 9-5 on a cloud (Tech) and 5-9 above the clouds (Travel)",
+            links: {
+                Email: "shreyasgulavani0208@gmail.com"
+            }
         },
         experiences: [],
         projects: []
@@ -365,16 +367,21 @@ function AboutPage() {
                         <div className="p-4 pr-5 py-6 mx-auto max-w-screen-xl md:p-8 lg:p-10">
                             <div className="grid grid-cols-3 gap-8 md:grid-cols-3 lg:grid-cols-4">
                                 <div>
+                                    <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Auth</h2>
+                                    <ul className="text-gray-500 dark:text-gray-400">
+                                        <li className="mb-4">
+                                            <Link href="#" className="hover:underline">Admin</Link>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div>
                                     <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Social</h2>
                                     <ul className="text-gray-500 dark:text-gray-400">
                                         <li className="mb-4">
-                                            <Link href="#" className="hover:underline">YouTube</Link>
+                                            <Link href="https://www.youtube.com/@CSGeeks" className="hover:underline">YouTube</Link>
                                         </li>
                                         <li className="mb-4">
-                                            <Link href="#" className="hover:underline">Facebook</Link>
-                                        </li>
-                                        <li className="mb-4">
-                                            <Link href="#" className="hover:underline">Instagram</Link>
+                                            <Link href="https://www.instagram.com/csgeeks_3/" className="hover:underline">Instagram</Link>
                                         </li>
                                     </ul>
                                 </div>

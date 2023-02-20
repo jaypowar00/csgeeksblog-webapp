@@ -132,14 +132,11 @@ function ArticlePostDetailPage({ article, profilePhotoUrl }) {
                                 <div>
                                     <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Social</h2>
                                     <ul className="text-gray-500 dark:text-gray-400">
-                                        <li className="mb-4">
-                                            <Link href="#" className="hover:underline">YouTube</Link>
+                                    <li className="mb-4">
+                                            <Link href="https://www.youtube.com/@CSGeeks" className="hover:underline">YouTube</Link>
                                         </li>
                                         <li className="mb-4">
-                                            <Link href="#" className="hover:underline">Facebook</Link>
-                                        </li>
-                                        <li className="mb-4">
-                                            <Link href="#" className="hover:underline">Instagram</Link>
+                                            <Link href="https://www.instagram.com/csgeeks_3/" className="hover:underline">Instagram</Link>
                                         </li>
                                     </ul>
                                 </div>
