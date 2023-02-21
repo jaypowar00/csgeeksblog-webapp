@@ -21,8 +21,13 @@ export const ShareContextWrapper = ({ children }) => {
     const [modal_peopleProjects, setModal_peopleProjects] = useState(false)
     const [modal_peopleAlias, setModal_peopleAlias] = useState(false)
     const [adminLoggedIn, setAdminLoggedIn] = useState(false)
-    const [adminName, setAdminName] = useState("")
     const [adminLoginStatusLoading, setAdminLoginStatusLoading] = useState(false)
+    const [createArticleTitle, setCreateArticleTitle] = useState("")
+    const [createArticleDescription, setCreateArticleDescription] = useState("")
+    const [createArticleContent, setCreateArticleContent] = useState("")
+    const [createArticleAuthor, setCreateArticleAuthor] = useState("")
+    const [createArticleTags, setCreateArticleTags] = useState([])
+    const [createArticleThumbnail, setCreateArticleThumbnail] = useState("")
 
     useEffect(() => {
         if (localStorage.getItem('minimized'))
@@ -35,16 +40,16 @@ export const ShareContextWrapper = ({ children }) => {
                 .then(response => {
                     if (response.data.success) {
                         setAdminLoggedIn(true)
-                        setAdminName(response.data.author)
+                        setCreateArticleAuthor(response.data.author)
                     } else {
                         setAdminLoggedIn(false)
-                        setAdminName("")
+                        setCreateArticleAuthor("")
                     }
                 }).catch(err => {
                     console.log('Something went wrong!')
                     console.log(err)
                     setAdminLoggedIn(false)
-                    setAdminName("")
+                    setCreateArticleAuthor("")
                 }).finally(() => {
                     setTimeout(() => {
                         setAdminLoginStatusLoading(false)
@@ -69,8 +74,14 @@ export const ShareContextWrapper = ({ children }) => {
             modal_peopleExperience, setModal_peopleExperience,
             modal_peopleProjects, setModal_peopleProjects,
             modal_peopleAlias, setModal_peopleAlias,
-            adminLoggedIn, setAdminLoggedIn, adminName, setAdminName,
+            adminLoggedIn, setAdminLoggedIn,
             adminLoginStatusLoading, setAdminLoginStatusLoading,
+            createArticleAuthor, setCreateArticleAuthor,
+            createArticleTitle, setCreateArticleTitle,
+            createArticleDescription, setCreateArticleDescription,
+            createArticleContent, setCreateArticleContent,
+            createArticleTags, setCreateArticleTags,
+            createArticleThumbnail, setCreateArticleThumbnail
         }}>
             {children}
         </ShareModalContext.Provider>

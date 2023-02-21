@@ -8,7 +8,7 @@ function AdminPage() {
 
     const [hostUrl, sethostUrl] = useState("https://csgeeksblog.netlify.app")
     const [hostName, sethostName] = useState("csgeeksblog.netlify.app")
-    const { sidebarMinimize, adminLoggedIn, setAdminLoggedIn, setAdminName, adminLoginStatusLoading } = useGeekContext()
+    const { sidebarMinimize, adminLoggedIn, setAdminLoggedIn, setCreateArticleAuthor, adminLoginStatusLoading } = useGeekContext()
 
     useEffect(() => {
         if (window.location.origin !== hostUrl)
@@ -25,7 +25,7 @@ function AdminPage() {
         if (sessionStorage.getItem('token'))
             sessionStorage.removeItem('token')
         setAdminLoggedIn(false)
-        setAdminName("")
+        setCreateArticleAuthor("")
     }
 
     return (
@@ -35,24 +35,24 @@ function AdminPage() {
                 <meta name="description" content="Admin Panel" />
                 <meta name="author" content="Jay Powar" />
                 <meta property="og:type" content="article" />
-                <meta property="og:image" content="" />
-                <meta property="og:image:secure" content="" />
+                <meta property="og:image" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail.jpg`} />
+                <meta property="og:image:secure" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail.jpg`} />
                 <meta property="og:image:width" content="526" />
                 <meta property="og:image:height" content="275" />
                 <meta property="og:image:type" content="image/jpeg" />
                 <meta property="og:title" content="" />
                 <meta property="og:description" content="" />
-                <meta property="og:url" content={`${hostUrl}`} />
-                <meta property="og:url" content={`${hostUrl}/`} />
+                <meta property="og:url" content={`${hostUrl}/admin`} />
+                <meta property="og:url" content={`${hostUrl}/admin/`} />
                 <meta property="og:site_name" content={`${hostName}`} />
 
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta property="twitter:domain" content={`${hostName}`} />
-                <meta property="twitter:url" content={`${hostUrl}`} />
-                <meta property="twitter:url" content={`${hostUrl}/`} />
+                <meta property="twitter:url" content={`${hostUrl}/admin`} />
+                <meta property="twitter:url" content={`${hostUrl}/admin/`} />
                 <meta name="twitter:title" content="Admin Panel" />
                 <meta name="twitter:description" content="Manage your articles in your admin panel" />
-                <meta name="twitter:image" content="" />
+                <meta name="twitter:image" content={`${hostUrl}/CSGeeksBlog-OG-Thumbnail.jpg`} />
 
             </Head>
             <div className={`main-container ${sidebarMinimize ? 'main-container-minimized' : ''}`}>
@@ -65,27 +65,27 @@ function AdminPage() {
                                         Admin Panel
                                     </h1>
                                     {
-                                        adminLoginStatusLoading?
-                                        <span className="block w-full focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-green-600 hover:bg-green-700 cursor-pointer !no-underline !text-white">
-                                            Loading...
-                                        </span>:
-                                        !adminLoggedIn ?
-                                            <Link className="block w-full focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-green-600 hover:bg-green-700 cursor-pointer !no-underline !text-white" href="/admin/login">
-                                                Login
-                                            </Link>
-                                            :
-                                            <>
-                                                <Link className="block w-full focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-[rgb(46,178,103)] hover:bg-[rgb(106,185,140)] cursor-pointer !no-underline !text-white" href="/admin/login">
-                                                    Publish Article
+                                        adminLoginStatusLoading ?
+                                            <span className="block w-full focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-green-600 hover:bg-green-700 cursor-pointer !no-underline !text-white">
+                                                Loading...
+                                            </span> :
+                                            !adminLoggedIn ?
+                                                <Link className="block w-full focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-green-600 hover:bg-green-700 cursor-pointer !no-underline !text-white" href="/admin/login">
+                                                    Login
                                                 </Link>
-                                                <Link className="block w-full focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-[rgb(46,178,103)] hover:bg-[rgb(106,185,140)] cursor-pointer !no-underline !text-white" href="/admin/login">
-                                                    Modify Article
-                                                </Link>
-                                                <Link className="block w-full focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-red-500 hover:bg-red-400 cursor-pointer !no-underline !text-white" href="/admin/login"
-                                                    onClick={logout}>
-                                                    Logout
-                                                </Link>
-                                            </>
+                                                :
+                                                <>
+                                                    <Link className="block w-full focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-[rgb(46,178,103)] hover:bg-[rgb(106,185,140)] cursor-pointer !no-underline !text-white" href="/admin/articles/create">
+                                                        Publish Article
+                                                    </Link>
+                                                    <Link className="block w-full focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-[rgb(46,178,103)] hover:bg-[rgb(106,185,140)] cursor-pointer !no-underline !text-white" href="/admin/articles">
+                                                        Modify Article
+                                                    </Link>
+                                                    <Link className="block w-full focus:outline-none font-medium rounded-lg text-sm px-5 py-2.5 text-center bg-red-500 hover:bg-red-400 cursor-pointer !no-underline !text-white" href="/admin"
+                                                        onClick={logout}>
+                                                        Logout
+                                                    </Link>
+                                                </>
                                     }
                                 </div>
                             </div>
@@ -94,6 +94,14 @@ function AdminPage() {
                     <footer className="bg-gray-800">
                         <div className="p-4 pr-5 py-6 mx-auto max-w-screen-xl md:p-8 lg:p-10">
                             <div className="grid grid-cols-3 gap-8 md:grid-cols-3 lg:grid-cols-4">
+                                <div>
+                                    <h2 className="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Auth</h2>
+                                    <ul className="text-gray-500 dark:text-gray-400">
+                                        <li className="mb-4">
+                                            <Link href="/admin" className="hover:underline">Admin</Link>
+                                        </li>
+                                    </ul>
+                                </div>
                                 <div>
                                     <h2 className="mb-6 text-sm font-semibold uppercase text-white">Social</h2>
                                     <ul className="text-gray-500 text-gray-400">

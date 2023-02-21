@@ -10,10 +10,13 @@ function AdminPage() {
     const router = useRouter()
     const [hostUrl, sethostUrl] = useState("https://csgeeksblog.netlify.app")
     const [hostName, sethostName] = useState("csgeeksblog.netlify.app")
-    const { sidebarMinimize, adminLoggedIn, setAdminLoggedIn, setAdminName, adminLoginStatusLoading, setAdminLoginStatusLoading } = useGeekContext()
+    const {
+        sidebarMinimize, adminLoggedIn, setAdminLoggedIn,
+        adminLoginStatusLoading, setAdminLoginStatusLoading,
+        setCreateArticleAuthor
+    } = useGeekContext()
     const [username, setUsername] = useState("")
     const [password, setPassword] = useState("")
-    const [remember, setRemember] = useState(true)
     const [errorReason, setErrorReason] = useState(false)
 
     useEffect(() => {
@@ -32,7 +35,7 @@ function AdminPage() {
         axios.post(`${process.env.NEXT_PUBLIC_CSGEEKS_API}/blog/login`, { username: username, password: password })
             .then(response => {
                 if (response.data.success) {
-                    setAdminName(response.data.author)
+                    setCreateArticleAuthor(response.data.author)
                     setAdminLoggedIn(true)
                     document.cookie = `token=${response.data.token}`
                     setAdminLoginStatusLoading(false)
@@ -42,7 +45,7 @@ function AdminPage() {
                     console.log(response.data.response)
                     if (response.data.response == "Failed to login")
                         setErrorReason("Wrong password!")
-                    else if(response.data.response == "login failed(user not found!)")
+                    else if (response.data.response == "login failed(user not found!)")
                         setErrorReason("Account not found!")
                 }
             }).catch(err => {
