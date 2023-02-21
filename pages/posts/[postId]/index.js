@@ -104,7 +104,7 @@ function ArticlePostDetailPage({ article, profilePhotoUrl }) {
                                     <span className="text-gray-600 text-sm float-right mr-0" style={{ fontSize: "12px" }}>{new Date(article.created).toLocaleString('en-US', { hour12: true })}</span>
                                 </div>
                                 <div className="mt-10">
-                                    <ReactMarkdown components={{ p: 'div' }} >
+                                    <ReactMarkdown components={{ p: 'div' }} className="markdown-area" >
                                         {article.content}
                                     </ReactMarkdown>
                                     <div className="flex justify-between items-center mt-16 mb-2 text-[#6b7280]">
